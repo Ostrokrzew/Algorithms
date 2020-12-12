@@ -1,6 +1,8 @@
 #ifndef ENGINEERPROJECT_UTILS_H
 #define ENGINEERPROJECT_UTILS_H
 
+#include "structures.h"
+
 //amount of numbers randomly generated
 #define AMOUNT (262144/4)
 
@@ -52,6 +54,92 @@ static int32_t* read_to_table(const char *input_file) {
     }
 
     return return_ptr;
+}
+
+static void fill_one_way_node(node_single_t head, uint32_t line) {
+    node_single_t current_node = head;
+    while (current_node->next != NULL)
+        current_node = current_node->next;
+
+    current_node->next = (node_single_t)zmalloc(sizeof(node_single));
+    current_node->value = line;
+    current_node->next->value = NULL;
+    current_node->next->next = NULL;
+}
+
+static uint8_t read_to_one_way_list(const char *input_file) {
+    node_single_t node = (node_single_t)zmalloc(sizeof(node_single));
+    node->value = NULL;
+    node->next = NULL;
+
+    //open the file with generated data to sort for read
+    FILE *input = fopen(input_file, "r");
+    if (!input) {
+        return ERR_OPEN_FILE;
+    }
+
+    //read input file to table
+    char *line = (char *)zmalloc(sizeof(char));
+    size_t len = 0;
+
+    for (size_t i = 0; i < AMOUNT; i++) {
+        if (getline(&line, &len, input) == -1) {
+            free(line);
+            return ERR_READ_DATA;
+        }
+        fill_one_way_node(node, atoll(line));
+    }
+    free(line);
+
+    //close input file
+    if (fclose(input)) {
+        return ERR_CLOSE_FILE;
+    }
+
+    return SUCCESS;
+}
+
+static void fill_two_way_node(node_double_t head, uint32_t line) {
+    node_double_t current_node = head;
+    while (current_node->next != NULL)
+        current_node = current_node->next;
+
+    current_node->next = (node_double_t)zmalloc(sizeof(node_double));
+    current_node->value = line;
+    current_node->next->prev = current_node;
+    current_node->next->next = NULL;
+}
+
+static uint8_t read_to_two_way_list(const char *input_file) {
+    node_double_t node = (node_double_t)zmalloc(sizeof(node_double));
+    node->prev = NULL;
+    node->next = NULL;
+
+    //open the file with generated data to sort for read
+    FILE *input = fopen(input_file, "r");
+    if (!input) {
+        return ERR_OPEN_FILE;
+    }
+
+    //read input file to table
+    char *line = (char *)zmalloc(sizeof(char));
+    size_t len = 0;
+
+    for (size_t i = 0; i < AMOUNT; i++) {
+        if (getline(&line, &len, input) == -1) {
+            free(line);
+            return ERR_READ_DATA;
+        }
+        fill_two_way_node(node, atoll(line));
+    }
+    free(line);
+
+    //close input file
+    if (fclose(input)) {
+        return ERR_CLOSE_FILE;
+    }
+
+    return SUCCESS;
 }
 
 static uint8_t table_to_write(const std::string &output_file, int32_t table[],
