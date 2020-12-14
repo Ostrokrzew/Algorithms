@@ -6,17 +6,23 @@
 #define ENGINEERPROJECT_FILENAMES_GENERATOR_H
 
 #include <sys/stat.h>
+#include <unistd.h>
 
 //generate timestamp
 static const std::string timestamp = std::to_string(std::time(NULL));
 
 static void make_dir(const std::string &name) {
 	struct stat st = {0};
+	char cwd[PATH_MAX];
+	std::string full_name = name;
 
-	if (stat(name.c_str(), &st) == -1) {
-		int result = mkdir(name.c_str(), (S_IREAD | S_IWRITE));
-		if (result)
-			fprintf(stderr, "Cannot create directory named %s", name.c_str());
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		sprintf(const_cast<char*>(full_name.c_str()), "%s/%s", cwd, timestamp.c_str());
+
+	if (stat(full_name.c_str(), &st) == -1) {
+		mkdir(full_name.c_str(), (S_IREAD | S_IWRITE)) ?
+		fprintf(stderr, "Cannot create directory named %s", full_name.c_str()) :
+		fprintf(stdout, "Created directory named %s", full_name.c_str());
 	}
 }
 

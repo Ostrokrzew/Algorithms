@@ -9,10 +9,14 @@
 #include <climits>
 
 #include "errors.h"
-#include "utils.h"
 #include "filenames_generator.h"
+#include "utils.h"
+#include "list_algorithms.h"
 #include "rng.h"
+#include "tables_utils.h"
 #include "table_algorithms.h"
 #include "table_algorithms_refactored.h"
+#include "structures.h"
+
 
 #endif //ENGINEERPROJECT_HEADERS_H
