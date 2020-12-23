@@ -16,7 +16,7 @@
 #include "tables_utils.h"
 #include "table_algorithms.h"
 #include "table_algorithms_refactored.h"
-#include "structures.h"
+#include "list.h"
 
 
 #endif //ENGINEERPROJECT_HEADERS_H
