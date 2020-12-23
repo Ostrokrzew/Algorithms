@@ -9,14 +9,14 @@
 #include <unistd.h>
 
 //generate timestamp
-static const std::string timestamp = std::to_string(std::time(NULL));
+static const std::string timestamp = std::to_string(std::time(nullptr));
 
 static void make_dir(const std::string &name) {
 	struct stat st = {0};
 	char cwd[PATH_MAX];
 	std::string full_name = name;
 
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	if (getcwd(cwd, sizeof(cwd)) != nullptr)
 		sprintf(const_cast<char*>(full_name.c_str()), "%s/%s", cwd, timestamp.c_str());
 
 	if (stat(full_name.c_str(), &st) == -1) {

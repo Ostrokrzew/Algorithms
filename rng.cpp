@@ -1,6 +1,6 @@
 #include "rng.h"
 
-uint8_t random_number_generator(std::string output_file) {
+uint8_t random_number_generator(const std::string& output_file) {
     //seed the generator with current time
     time_t t = time(nullptr);
     srand48(t);

@@ -51,8 +51,7 @@ std::chrono::duration<double> heapsort_prerefactored(long table[]) {
 }
 
 void hsort_prerefactored(long table[], int length) {
-	int j;
-	for (j = length / 2; j > 0; --j) {
+	for (int j = length / 2; j > 0; --j) {
 		restore_prerefactored(table, j, length);
 	}
 	do {
@@ -297,13 +296,16 @@ std::chrono::duration<double> ciurassort_prerefactored(long table[]) {
 }
 
 void crsort_prerefactored(long table[], int length) {
-	int tmp_val, tmp_idx;
-	int steps[8] = {701, 301, 132, 57, 23, 10, 4, 1};
-	for (int step : steps) {
-		for (int j = step; j < length; j++) {
-			tmp_val = table[j];
-			for (tmp_idx = j; tmp_idx >= step && table[tmp_idx-step] > tmp_val; tmp_idx -= step)
-				table[tmp_idx] = table[tmp_idx - step];
+    const int size = 8;
+	int steps[size] = {701, 301, 132, 57, 23, 10, 4, 1};
+	for (int i : steps) {
+		for (int j = i; j < length; j++) {
+            int tmp_val = table[j];
+            int tmp_idx;
+			for (int k = j; k >= i && table[k-i] > tmp_val; k -= i) {
+                table[k] = table[k-i];
+                tmp_idx = k;
+            }
 			table[tmp_idx] = tmp_val;
 		}
 	}
@@ -325,10 +327,10 @@ std::chrono::duration<double> linearsearch_prerefactored(long table[], long sear
 
 	// check if number is found
 	if (result) {
-		fprintf(stdout, "Time to find %d with linear search algorithm: "
+		fprintf(stdout, "Time to find %ld with linear search algorithm: "
 				"%f s\n", searched_number, diff);
 	} else {
-		fprintf(stderr, "Linear search didn't found %d.\n", searched_number);
+		fprintf(stderr, "Linear search didn't found %ld.\n", searched_number);
 	}
 
 	//return duration time
@@ -360,10 +362,10 @@ std::chrono::duration<double> guardiansearch_prerefactored(long table[], long se
 
 	// check if number is found
 	if (result) {
-		fprintf(stdout, "Time to find %d with linear search with guardian algorithm: "
+		fprintf(stdout, "Time to find %ld with linear search with guardian algorithm: "
 				"%f s\n", searched_number, diff);
 	} else {
-		fprintf(stderr, "Linear search with guardian didn't found %d.\n", searched_number);
+		fprintf(stderr, "Linear search with guardian didn't found %ld.\n", searched_number);
 	}
 
 	//return duration time
@@ -372,10 +374,13 @@ std::chrono::duration<double> guardiansearch_prerefactored(long table[], long se
 
 bool grdsearch_prerefactored(long table[], int length, long searched_item) {
 	int index = 0;
-	*(table+length) = searched_item;  //set guardian
+	long tmp_table[length+1];
+	for (int i = 0; i <= length; i++)
+	    tmp_table[i] = table[i];
+	tmp_table[length] = searched_item;  //set guardian
 
 	while (true) {
-		long current_item = table[index];
+		long current_item = tmp_table[index];
 		if (current_item == searched_item) {
 			break;
 		}

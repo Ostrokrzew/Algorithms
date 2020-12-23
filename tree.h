@@ -138,14 +138,14 @@ static void delete_tree_node(binary_node_t node) {
 			if (node->parent->right == node)
 				delete_left_parent_two_childs_node(node);
 			if (node->parent->left == node)
-				delete_right_parent_two_childs_node(node)
+				delete_right_parent_two_childs_node(node);
 		}
 	}
 }
 
 static void delete_all_tree_nodes(binary_node_t *tree) {
 	while (tree != nullptr)
-		delete_tree_node(*tree)
+		delete_tree_node(*tree);
 }
 
 static void add_tree_node(binary_node_t root, uint32_t value) {
@@ -170,8 +170,6 @@ static void add_tree_node(binary_node_t root, uint32_t value) {
 }
 
 static uint8_t read_to_tree(const char *input_file) {
-	binary_node_t node = init_node();
-
 	//open the file with generated data to sort for read
 	FILE *input = fopen(input_file, "r");
 	if (!input) {
@@ -179,7 +177,7 @@ static uint8_t read_to_tree(const char *input_file) {
 	}
 
 	//read input file to table
-	char *line = (char *)zmalloc(sizeof(char));
+	auto line = (char *)zmalloc(sizeof(char));
 	size_t len = 0;
 
 	for (size_t i = 0; i < AMOUNT; i++) {
@@ -187,7 +185,8 @@ static uint8_t read_to_tree(const char *input_file) {
 			free(line);
 			return ERR_READ_DATA;
 		}
-		fill_tree_node(node, atoll(line));
+        binary_node_t node = init_node();
+        add_tree_node(node, atoll(line));
 	}
 	free(line);
 
