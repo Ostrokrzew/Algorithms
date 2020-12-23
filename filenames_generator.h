@@ -20,9 +20,9 @@ static void make_dir(const std::string &name) {
 		sprintf(const_cast<char*>(full_name.c_str()), "%s/%s", cwd, timestamp.c_str());
 
 	if (stat(full_name.c_str(), &st) == -1) {
-		mkdir(full_name.c_str(), (S_IREAD | S_IWRITE)) ?
-		fprintf(stderr, "Cannot create directory named %s", full_name.c_str()) :
-		fprintf(stdout, "Created directory named %s", full_name.c_str());
+		mkdir(full_name.c_str(), (S_IRWXU | S_IRWXG | S_IRWXO)) ?
+		fprintf(stderr, "Cannot create directory named %s\n", full_name.c_str()) :
+		fprintf(stdout, "Created directory named %s\n", full_name.c_str());
 	}
 }
 

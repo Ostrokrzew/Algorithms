@@ -98,9 +98,11 @@ std::chrono::duration<double> insertionsort(int32_t table[]) {
 }
 
 void inssort(int32_t table[], size_t length) {
+	int32_t tmp;
+	size_t j;
 	for (size_t i = 1; i < length; ++i) {
-		int32_t tmp = table[i];
-		size_t j = i - 1;
+		tmp = table[i];
+		j = i - 1;
 		while(j < length && tmp < table[j]) {
 			table[j+1] = table[j];
 			--j;
@@ -140,7 +142,7 @@ void msort(int32_t table[], size_t left, size_t right) {
 
 void merge(int32_t table[], size_t left, size_t middle, size_t right) {
 	//copy table content to temporary table
-	auto *tmp_table = (int32_t*)zmalloc(sizeof(int32_t) * AMOUNT);
+	int32_t *tmp_table = (int32_t*)zmalloc(sizeof(int32_t) * AMOUNT);
 	for (size_t i = 0; i < AMOUNT; i++)
 		tmp_table[i] = table[i];
 
@@ -216,14 +218,15 @@ std::chrono::duration<double> selectionsort(int32_t table[]) {
 }
 
 void slctsort(int32_t table[], size_t length) {
-    for (size_t i = 0; i < (length - 1); ++i) {
-        size_t min_val_index = i;
-        for (size_t j = i + 1; j < length; ++j) {
-            if (table[j] < table[min_val_index])
-                min_val_index = j;
-        }
-        swap_xor(table[i], table[min_val_index]);
-    }
+	size_t min_val_index;
+	for (size_t i = 0; i < (length - 1); ++i) {
+		min_val_index = i;
+		for (size_t j = i + 1; j < length; ++j) {
+		if (table[j] < table[min_val_index])
+			min_val_index = j;
+		}
+		swap_xor(table[i], table[min_val_index]);
+	}
 }
 
 /*** SHELL'S SORT ***/
@@ -247,17 +250,17 @@ std::chrono::duration<double> shellsort(int32_t table[]) {
 }
 
 void shlsort(int32_t table[], size_t length) {
-    int32_t step = length / 2;
-    while (step >= 1) {
-        for (size_t i = step; i < length; i++) {
-            int32_t tmp_val, j;
-            tmp_val = table[i];
-            for (j = i; j >= step && table[j - step] > tmp_val; j -= step)
-                table[j] = table[j - step];
-            table[j] = tmp_val;
-        }
-        step >>= 1;
-    }
+	int32_t step = length / 2;
+	int32_t tmp_val, j;
+	while (step >= 1) {
+		for (size_t i = step; i < length; i++) {
+			tmp_val = table[i];
+			for (j = i; j >= step && table[j-step] > tmp_val; j -= step)
+				table[j] = table[j-step];
+			table[j] = tmp_val;
+		}
+		step >>= 1;
+	}
 }
 
 std::chrono::duration<double> ciurassort(int32_t table[]) {
@@ -320,9 +323,8 @@ std::chrono::duration<double> linearsearch(int32_t table[], const int32_t search
 
 bool lnrsearch(int32_t table[], const size_t length, const int32_t searched_item) {
 	for (size_t i = 0; i < length; i++) {
-		if (table[i] == searched_item) {
+		if (table[i] == searched_item)
 			return true;
-		}
 	}
 	return false;
 }

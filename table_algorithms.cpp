@@ -100,9 +100,13 @@ void inssort_prerefactored(long table[], int length) {
 	for (int i = 1; i < length; ++i) {
 		long tmp = table[i];
 		int j = i - 1;
-		while(j < length && tmp < table[j]) {
+		while(j < length) {
+			if (tmp >= table[j])
+				break;
 			table[j+1] = table[j];
 			j -= 1;
+			if (j <= 0)
+				break;
 		}
 		table[j+1] = tmp;
 	}
@@ -432,7 +436,7 @@ std::chrono::duration<double> maxminsearch_prerefactored(long table[], long sear
 
 	//start searching
 	long maximum = maxsearch_prerefactored(table, AMOUNT);
-    long minimum = minsearch_prerefactored(table, AMOUNT);
+	long minimum = minsearch_prerefactored(table, AMOUNT);
 
 	if (minimum <= maximum)
 		result = true;
@@ -456,17 +460,19 @@ std::chrono::duration<double> maxminsearch_prerefactored(long table[], long sear
 }
 
 long maxsearch_prerefactored(long table[], int length) {
-    long maximum = LONG_MIN;
+	long maximum = LONG_MIN;
 	for (int i = 0; i < length; i++) {
 		if (table[i] > maximum)
 			maximum = table[i];
 	}
+	return maximum;
 }
 
 long minsearch_prerefactored(long table[], int length) {
-    long minimum = LONG_MAX;
-    for (int i = 0; i < length; i++) {
-        if (table[i] < minimum)
-            minimum = table[i];
-    }
+	long minimum = LONG_MAX;
+	for (int i = 0; i < length; i++) {
+		if (table[i] < minimum)
+			minimum = table[i];
+	}
+	return minimum;
 }
