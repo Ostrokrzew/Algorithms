@@ -3,13 +3,13 @@
 /*** BUBBLE SORT ***/
 std::chrono::duration<double> bubblesort(int32_t table[]) {
     //start counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
     //start sorting
     bblsort(table, AMOUNT);
 
     //stop counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
     //print sorting duration time
     std::chrono::duration<double> diff = end-start;
@@ -34,13 +34,13 @@ inline void bblsort(int32_t table[], size_t length) {
 /*** HEAP SORT ***/
 std::chrono::duration<double> heapsort(int32_t table[]) {
     //start counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
     //start sorting
     hsort(table, AMOUNT);
 
     //stop counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
     //print sorting duration time
     std::chrono::duration<double> diff = end-start;
@@ -82,13 +82,13 @@ inline void restore(int32_t table[], size_t j, size_t length) {
 /*** INSERTION SORT ***/
 std::chrono::duration<double> insertionsort(int32_t table[]) {
     //start counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
     //start sorting
     inssort(table, AMOUNT);
 
     //stop counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
     //print sorting duration time
     std::chrono::duration<double> diff = end-start;
@@ -116,13 +116,13 @@ inline void inssort(int32_t table[], size_t length) {
 /*** MERGE SORT ***/
 std::chrono::duration<double> mergesort(int32_t table[]) {
     //start counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
     //start sorting
     msort(table, 0, AMOUNT - 1);
 
     //stop counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
     //print sorting duration time
     std::chrono::duration<double> diff = end-start;
@@ -171,13 +171,13 @@ inline void merge(int32_t table[], size_t left, size_t middle, size_t right) {
 /*** QUICK SORT ***/
 std::chrono::duration<double> quicksort(int32_t table[]) {
     //start counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
     //start sorting
     qsort(table, 0, AMOUNT - 1);
 
     //stop counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
     //print sorting duration time
     std::chrono::duration<double> diff = end-start;
@@ -205,13 +205,13 @@ inline void qsort(int32_t table[], size_t left, size_t right) {
 /*** SELECTION SORT ***/
 std::chrono::duration<double> selectionsort(int32_t table[]) {
     //start counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
     //start sorting
     slctsort(table, AMOUNT);
 
     //stop counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
     //print sorting duration time
     std::chrono::duration<double> diff = end-start;
@@ -237,13 +237,13 @@ inline void slctsort(int32_t table[], size_t length) {
 /*** SHELL'S SORT ***/
 std::chrono::duration<double> shellsort(int32_t table[]) {
     //start counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
     //start sorting
     shlsort(table, AMOUNT);
 
     //stop counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
     //print sorting duration time
     std::chrono::duration<double> diff = end-start;
@@ -270,13 +270,13 @@ inline void shlsort(int32_t table[], size_t length) {
 
 std::chrono::duration<double> ciurassort(int32_t table[]) {
     //start counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
     //start sorting
     crsort(table, AMOUNT);
 
     //stop counting time
-    std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
     //print sorting duration time
     std::chrono::duration<double> diff = end-start;
@@ -304,13 +304,13 @@ inline void crsort(int32_t table[], size_t length) {
 /*** LINEAR SEARCH ***/
 std::chrono::duration<double> linearsearch(int32_t table[], const int32_t searched_number, bool &result) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start searching
 	result = lnrsearch(table, AMOUNT, searched_number);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print searching duration time
 	std::chrono::duration<double> diff = end-start;
@@ -338,13 +338,13 @@ inline bool lnrsearch(int32_t table[], const size_t length, const int32_t search
 
 std::chrono::duration<double> guardiansearch(int32_t table[], const int32_t searched_number, bool &result) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start searching
 	result = grdsearch(table, AMOUNT, searched_number);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print searching duration time
 	std::chrono::duration<double> diff = end-start;
@@ -378,13 +378,13 @@ inline bool grdsearch(int32_t table[], const size_t length, const int32_t search
 /*** BINARY SEARCH ***/
 std::chrono::duration<double> binarysearch(int32_t table[], const int32_t searched_number, bool &result) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start searching
 	result = bnrsearch(table, 0, AMOUNT - 1, searched_number);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print searching duration time
 	std::chrono::duration<double> diff = end-start;
@@ -422,7 +422,7 @@ std::chrono::duration<double> maxminsearch(int32_t table[], const int32_t search
 	int32_t maximum = INT32_MIN;
 
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start searching
 	mxmnearch(table, AMOUNT, minimum, maximum);
@@ -431,7 +431,7 @@ std::chrono::duration<double> maxminsearch(int32_t table[], const int32_t search
 		result = true;
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print searching duration time
 	std::chrono::duration<double> diff = end-start;

@@ -3,13 +3,13 @@
 /*** BUBBLE SORT ***/
 std::chrono::duration<double> bubblesort_prerefactored(long table[]) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start sorting
 	bblsort_prerefactored(table, AMOUNT);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
@@ -33,13 +33,13 @@ void bblsort_prerefactored(long table[], int length) {
 /*** HEAP SORT ***/
 std::chrono::duration<double> heapsort_prerefactored(long table[]) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start sorting
 	hsort_prerefactored(table, AMOUNT);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
@@ -78,13 +78,13 @@ void restore_prerefactored(long table[], int j, int length) {
 /*** INSERTION SORT ***/
 std::chrono::duration<double> insertionsort_prerefactored(long table[]) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start sorting
 	inssort_prerefactored(table, AMOUNT);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
@@ -114,13 +114,13 @@ void inssort_prerefactored(long table[], int length) {
 /*** MERGE SORT ***/
 std::chrono::duration<double> mergesort_prerefactored(long table[]) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start sorting
 	msort_prerefactored(table, 0, AMOUNT - 1);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
@@ -176,13 +176,13 @@ void merge_prerefactored(long table[], int left, int middle, int right) {
 /*** QUICK SORT ***/
 std::chrono::duration<double> quicksort_prerefactored(long table[]) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start sorting
 	qsort_prerefactored(table, 0, AMOUNT - 1);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
@@ -213,13 +213,13 @@ void qsort_prerefactored(long table[], int left, int right) {
 /*** SELECTION SORT ***/
 std::chrono::duration<double> selectionsort_prerefactored(long table[]) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start sorting
 	slctsort_prerefactored(table, AMOUNT);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
@@ -244,13 +244,13 @@ void slctsort_prerefactored(long table[], int length) {
 /*** SHELL'S SORT ***/
 std::chrono::duration<double> shellsort_prerefactored(long table[]) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start sorting
 	shlsort_prerefactored(table, AMOUNT);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
@@ -278,13 +278,13 @@ void shlsort_prerefactored(long table[], int length) {
 
 std::chrono::duration<double> ciurassort_prerefactored(long table[]) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start sorting
 	crsort_prerefactored(table, AMOUNT);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
@@ -314,13 +314,13 @@ void crsort_prerefactored(long table[], int length) {
 /*** LINEAR SEARCH ***/
 std::chrono::duration<double> linearsearch_prerefactored(long table[], long searched_number, bool &result) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start searching
 	result = lnrsearch_prerefactored(table, AMOUNT, searched_number);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print searching duration time
 	std::chrono::duration<double> diff = end-start;
@@ -349,13 +349,13 @@ bool lnrsearch_prerefactored(long table[], int length, long searched_item) {
 
 std::chrono::duration<double> guardiansearch_prerefactored(long table[], long searched_number, bool &result) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start searching
 	result = grdsearch_prerefactored(table, AMOUNT, searched_number);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print searching duration time
 	std::chrono::duration<double> diff = end-start;
@@ -395,13 +395,13 @@ bool grdsearch_prerefactored(long table[], int length, long searched_item) {
 /*** BINARY SEARCH ***/
 std::chrono::duration<double> binarysearch_prerefactored(long table[], long searched_number, bool &result) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start searching
 	result = bnrsearch_prerefactored(table, 0, AMOUNT - 1, searched_number);
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print searching duration time
 	std::chrono::duration<double> diff = end-start;
@@ -437,7 +437,7 @@ bool bnrsearch_prerefactored(long table[], int left, int right, long searched_it
 /*** MAXIMUM/ MINIMUM SEARCH ***/
 std::chrono::duration<double> maxminsearch_prerefactored(long table[], long searched_number, bool &result) {
 	//start counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start searching
 	long maximum = maxsearch_prerefactored(table, AMOUNT);
@@ -447,7 +447,7 @@ std::chrono::duration<double> maxminsearch_prerefactored(long table[], long sear
 		result = true;
 
 	//stop counting time
-	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print searching duration time
 	std::chrono::duration<double> diff = end-start;
