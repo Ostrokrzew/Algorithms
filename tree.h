@@ -15,7 +15,7 @@ typedef binary_node *binary_node_t;
 static binary_node_t init_node() {
 	auto first_node = (binary_node_t)zmalloc(sizeof(binary_node));
 	first_node->parent = nullptr;
-	first_node->value = 0;
+	first_node->value = NULL;
 	first_node->left = nullptr;
 	first_node->right = nullptr;
 	return first_node;
@@ -185,8 +185,8 @@ static uint8_t read_to_tree(const char *input_file) {
 			free(line);
 			return ERR_READ_DATA;
 		}
-        binary_node_t node = init_node();
-        add_tree_node(node, atoll(line));
+		binary_node_t node = init_node();
+		add_tree_node(node, atoll(line));
 	}
 	free(line);
 
