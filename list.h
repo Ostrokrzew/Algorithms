@@ -17,7 +17,7 @@ static list_node_t init_list_node() {
 	return first_node;
 }
 
-static void remove_lonely_node(list_node_t node_to_remove) {
+static void remove_lonely_node(list_node_t &node_to_remove) {
 	free(node_to_remove);
 }
 
@@ -27,41 +27,52 @@ static void remove_first_node(list_node_t &first_node) {
 	free(node_to_remove);
 }
 
-static void remove_previous_node(list_node_t first_node, list_node_t node_to_remove) {
+static void remove_last_node(list_node_t const &first_node) {
+	list_node_t node = first_node;
+	while (node->next->next != nullptr)
+		node = node->next;
+	free(node->next);
+	node->next = nullptr;
+}
+
+static void remove_middle_node(list_node_t const &first_node, list_node_t node_to_remove) {
 	list_node_t current_node = first_node;
 	while (current_node->next != node_to_remove)
 		current_node = current_node->next;
-
+	current_node->next = node_to_remove->next;
+	free(node_to_remove);
 }
 
-
-static void remove_list_node(list_node_t first_node, list_node_t node_to_remove) {
+static void remove_list_node(list_node_t &first_node, list_node_t node_to_remove) {
 	if (first_node == node_to_remove) {
-		if (first_node.next == nullptr)
+		if (first_node->next == nullptr)
 			remove_lonely_node(first_node);
 		else
 			remove_first_node(first_node);
 	} else {
-
+		if (node_to_remove->next == nullptr)
+			remove_last_node(first_node);
+		else
+			remove_middle_node(first_node, node_to_remove);
 	}
-
 }
 
-static void fill_list_node(list_node_t head, uint32_t line) {
+static void remove_all_nodes(list_node_t &first_node) {
+	while (first_node != nullptr)
+		remove_list_node(first_node, first_node);
+}
+
+static void fill_list_node(list_node_t const &head, uint32_t value) {
 	list_node_t current_node = head;
-	while (current_node->next != NULL)
+	while (current_node->next != nullptr)
 		current_node = current_node->next;
 
-	current_node->next = (list_node_t)zmalloc(sizeof(list_node));
-	current_node->value = line;
-	current_node->next->value = NULL;
-	current_node->next->next = NULL;
+	current_node->value = value;
+	current_node->next = init_list_node();
 }
 
 static uint8_t read_to_list(const char *input_file) {
-	list_node_t node = (list_node_t)zmalloc(sizeof(list_node));
-	node->value = NULL;
-	node->next = NULL;
+	list_node_t head = init_list_node();
 
 	//open the file with generated data to sort for read
 	FILE *input = fopen(input_file, "r");
@@ -78,7 +89,7 @@ static uint8_t read_to_list(const char *input_file) {
 			free(line);
 			return ERR_READ_DATA;
 		}
-		fill_one_way_node(node, atoll(line));
+		fill_list_node(head, atoll(line));
 	}
 	free(line);
 
