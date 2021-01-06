@@ -12,7 +12,7 @@ typedef struct binary_tree {
 
 typedef binary_node *binary_node_t;
 
-static binary_node_t init_node() {
+static binary_node_t init_tree_node() {
 	auto first_node = (binary_node_t)zmalloc(sizeof(binary_node));
 	first_node->parent = nullptr;
 	first_node->value = NULL;
@@ -22,14 +22,14 @@ static binary_node_t init_node() {
 }
 
 static void add_left_leaf(binary_node_t root, uint32_t value) {
-	binary_node_t left_node = init_node();
+	binary_node_t left_node = init_tree_node();
 	root->left = left_node;
 	left_node->parent = root;
 	left_node->value = value;
 }
 
 static void add_right_leaf(binary_node_t root, uint32_t value) {
-	binary_node_t right_node = init_node();
+	binary_node_t right_node = init_tree_node();
 	root->right = right_node;
 	right_node->parent = root;
 	right_node->value = value;
@@ -143,12 +143,12 @@ static void delete_tree_node(binary_node_t node) {
 	}
 }
 
-static void delete_all_tree_nodes(binary_node_t *tree) {
+static void delete_all_tree_nodes(binary_node_t tree) {
 	while (tree != nullptr)
-		delete_tree_node(*tree);
+		delete_tree_node(tree);
 }
 
-static void add_tree_node(binary_node_t root, uint32_t value) {
+static void add_tree_node(binary_node_t &root, uint32_t value) {
 	binary_node_t current_node = root;
 	while(true) {
 		if (current_node->left != nullptr && current_node->right != nullptr) {
@@ -170,6 +170,7 @@ static void add_tree_node(binary_node_t root, uint32_t value) {
 }
 
 static uint8_t read_to_tree(const char *input_file) {
+	binary_node_t root = init_tree_node();
 	//open the file with generated data to sort for read
 	FILE *input = fopen(input_file, "r");
 	if (!input) {
@@ -185,8 +186,7 @@ static uint8_t read_to_tree(const char *input_file) {
 			free(line);
 			return ERR_READ_DATA;
 		}
-		binary_node_t node = init_node();
-		add_tree_node(node, atoll(line));
+		add_tree_node(root, atoll(line));
 	}
 	free(line);
 
