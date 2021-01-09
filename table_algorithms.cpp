@@ -21,11 +21,10 @@ std::chrono::duration<double> bubblesort_prerefactored(long table[]) {
 }
 
 void bblsort_prerefactored(long table[], int length) {
-	for (int i = (length - 1); i > 0; i--) {
-		for (int j = 1; j <= i; j++) {
-			if (table[j] < table[j-1]) {
-                swap_tmp(table[j], table[j-1]);
-			}
+	for (int i = 0; i < length; i++) {
+		for (int j = 0; j <= length-1; j++) {
+			if (table[j] > table[j+1])
+                		swap_tmp(table[j], table[j+1]);
 		}
 	}
 }
@@ -96,18 +95,16 @@ std::chrono::duration<double> insertionsort_prerefactored(long table[]) {
 }
 
 void inssort_prerefactored(long table[], int length) {
-	for (int i = 1; i < length; ++i) {
-		long tmp = table[i];
-		int j = i - 1;
-		while(j < length) {
-			if (tmp >= table[j])
+	for (int i = 1; i < length; i++) {
+		long tmp_i = table[i];
+		int j;
+		for (j = (i - 1); j >= 0; j--) {
+			long tmp_j = table[j];
+			if (tmp_j <= tmp_i)
 				break;
-			table[j+1] = table[j];
-			j -= 1;
-			if (j <= 0)
-				break;
+			table[j+1] = tmp_j;
 		}
-		table[j+1] = tmp;
+		table[j+1] = tmp_i;
 	}
 }
 
@@ -298,15 +295,15 @@ std::chrono::duration<double> ciurassort_prerefactored(long table[]) {
 void crsort_prerefactored(long table[], int length) {
     const int size = 8;
 	int steps[size] = {701, 301, 132, 57, 23, 10, 4, 1};
-	for (int i : steps) {
-		for (int j = i; j < length; j++) {
-            int tmp_val = table[j];
-            int tmp_idx;
-			for (int k = j; k >= i && table[k-i] > tmp_val; k -= i) {
-                table[k] = table[k-i];
-                tmp_idx = k;
-            }
-			table[tmp_idx] = tmp_val;
+	for (int i = 0; i < size; i++) {
+		int step = steps[i];
+		for (int j = step; j < length; j++) {
+			long tmp_val;
+			int k;
+			tmp_val = table[j];
+			for (k = j; k >= step && table[k-step] > tmp_val; k -= step)
+				table[k] = table[k-step];
+			table[k] = tmp_val;
 		}
 	}
 }

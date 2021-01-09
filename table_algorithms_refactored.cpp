@@ -21,14 +21,18 @@ std::chrono::duration<double> bubblesort(int32_t table[]) {
 }
 
 inline void bblsort(int32_t table[], size_t length) {
-    size_t i, j;
-    for (i = (length - 1); i > 0; i--) {
-        for (j = 1; j <= i; j++) {
-            if (table[j] < table[j-1]) {
-                swap_xor(table[j-1], table[j]);
-            }
-        }
-    }
+	bool change = false;
+	size_t i, j;
+	for (i = 0; i < length; i++) {
+		for (j = 1; j <= length-i; j++) {
+			if (table[j] < table[j-1]) {
+				swap_xor(table[j-1], table[j]);
+				change = true;
+			}
+		}
+		if (!change)
+			break;
+	}
 }
 
 /*** HEAP SORT ***/
@@ -289,7 +293,7 @@ std::chrono::duration<double> ciurassort(int32_t table[]) {
 
 inline void crsort(int32_t table[], size_t length) {
 	int32_t tmp_val;
-    size_t i, tmp_idx;
+	size_t i, tmp_idx;
 	uint16_t steps[8] = {701, 301, 132, 57, 23, 10, 4, 1};
 	for (uint16_t step : steps) {
 		for (i = step; i < length; i++) {
