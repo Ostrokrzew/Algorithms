@@ -186,7 +186,7 @@ static uint8_t read_to_tree(const char *input_file) {
 			free(line);
 			return ERR_READ_DATA;
 		}
-		add_tree_node(root, atoll(line));
+		add_tree_node(root, atol(line));
 	}
 	free(line);
 

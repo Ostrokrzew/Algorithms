@@ -23,7 +23,7 @@ static int32_t* read_to_table(const char *input_file) {
             *return_ptr = ERR_READ_DATA;
             return return_ptr;
         }
-        *(return_ptr + i) = atoll(line);
+        *(return_ptr + i) = atol(line);
     }
     free(line);
 
@@ -76,6 +76,17 @@ static uint8_t search_result_to_write(const std::string &output_file, std::chron
 	return SUCCESS;
 }
 
+static inline uint8_t validate_order(const int32_t table[]) {
+	for (size_t i = 1; i < AMOUNT; i++) {
+		if (table[i-1] > table[i]) {
+			fprintf(stderr, "%ld should be greater or equal %ld.\n", table[i], table[i-1]);
+//			return ERR_WRG_ORDR;
+		}
+	}
+
+	return SUCCESS;
+}
+
 static uint8_t execute_sort_algorithm_on_table(const char *input_file, const std::string &output_file,
 					       std::chrono::duration<double> (*algorithm)(int32_t[])) {
 	uint8_t result;
@@ -85,14 +96,17 @@ static uint8_t execute_sort_algorithm_on_table(const char *input_file, const std
 	// run algorithm and receive its duration time
 	std::chrono::duration<double> diff = algorithm(table);
 
+	result = validate_order(table);
+	if (result)
+		goto error;
+
 	// write results to file
 	result = table_to_write(output_file, table, diff);
-	if (result)
-		return result;
 
+error:
 	free(table);
 
-	return SUCCESS;
+	return result;
 }
 
 static uint8_t execute_search_algorithm_on_table(const char *input_file, const std::string &output_file,
