@@ -56,7 +56,7 @@ static inline void remove_list_node(list_node_t &first_node, list_node_t &node_t
 		if (node_to_remove->next == nullptr)
 			remove_last_node(first_node);
 		else
-			remove_middle_node(first_node, node_to_remove);
+			remove_internal_node(first_node, node_to_remove);
 	}
 }
 
@@ -113,7 +113,7 @@ static inline void remove_tail(list_controler_t &list_controler) {
 }
 
 static inline void update_metalist(list_controler_t &list_controler, list_node_t const &first_node) {
-	list_controler->head = current_node;
+	list_controler->head = first_node;
 	list_controler->counter = 1;
 	list_node_t current_node = first_node;
 	while (current_node->next != nullptr) {
@@ -125,6 +125,7 @@ static inline void update_metalist(list_controler_t &list_controler, list_node_t
 
 static uint8_t read_to_list(const char *input_file) {
 	list_node_t node = init_list_node();
+	list_node_t first_node = node;
 
 	//open the file with generated data to sort for read
 	FILE *input = fopen(input_file, "r");
@@ -141,16 +142,55 @@ static uint8_t read_to_list(const char *input_file) {
 			free(line);
 			return ERR_READ_DATA;
 		}
-		node->value = atoll(line);
+		node->value = atol(line);
 		node->next = init_list_node();
 		node = node->next;
 	}
 	free(line);
-	remove_list
+	remove_list_node(first_node, node);
 
 	//close input file
 	if (fclose(input))
 		return ERR_CLOSE_FILE;
+
+	return SUCCESS;
+}
+
+static uint8_t list_to_write(const std::string &output_file, list_node_t &first_node,
+			      std::chrono::duration<double> diff) {
+	//open the output file for write and clear its content
+	std::ofstream output;
+	output.open(output_file, std::ofstream::trunc);
+	if (!output.is_open())
+		return ERR_OPEN_FILE;
+
+	output << "duration: " << diff.count() << " s\n" << std::endl;
+
+	//save output to file
+	list_node_t &current_node = first_node;
+	do {
+		output << current_node->value << std::endl;
+		current_node = current_node->next;
+	} while (current_node != nullptr);
+
+	//close output file
+	output.close();
+	if (output.is_open())
+		return ERR_CLOSE_FILE;
+
+	return SUCCESS;
+}
+
+static inline uint8_t validate_order(const list_node_t &first_node) {
+	list_node_t prev_node = first_node, current_node;
+	while (prev_node->next != nullptr) {
+		current_node = prev_node->next;
+		if (prev_node->value > current_node->value) {
+			fprintf(stderr, "%ld should be greater or equal %ld.\n", current_node->value, prev_node->value);
+			return ERR_WRG_ORDR;
+		}
+		prev_node = current_node;
+	}
 
 	return SUCCESS;
 }
