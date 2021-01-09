@@ -5,7 +5,6 @@
 enum ErrorCodes {
     SUCCESS = 0,
     ERR_WRG_ORDR,
-    ERR_WRG_VAL,
     ERR_OPEN_FILE,
     ERR_CLOSE_FILE,
     ERR_READ_DATA,
