@@ -3,8 +3,8 @@
 
 #include "list.h"
 
-std::chrono::duration<double> linearsort_prerefactored(list_node_t);
-void lnrsort_prerefactored(list_node_t);
+std::chrono::duration<double> list_sort_bubble_prerefactored(list_node_t);
+void list_sort_bbl_prerefactored(list_node_t);
 
 std::chrono::duration<double> linearsearch_prerefactored(long[], long, bool&);
 bool lnrsearch_prerefactored(long[], int, long);

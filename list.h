@@ -85,6 +85,17 @@ static inline void set_last_list_node(list_node_t const &first_node, uint32_t va
 	current_node->value = value;
 }
 
+static inline void set_list_node(list_node_t const &first_node, list_node_t &node_to_set, uint32_t value) {
+	if (first_node == node_to_set) {
+		set_first_list_node(first_node, value);
+	} else {
+		if (node_to_set->next == nullptr)
+			set_last_list_node(first_node, value);
+		else
+			set_internal_list_node(first_node, node_to_set, value);
+	}
+}
+
 typedef struct metalist {
 	list_node_t head;
 	list_node_t tail;
@@ -181,7 +192,25 @@ static uint8_t list_to_write(const std::string &output_file, list_node_t &first_
 	return SUCCESS;
 }
 
-static inline uint8_t validate_order(const list_node_t &first_node) {
+static uint8_t search_result_list_to_write(const std::string &output_file, list_node_t &first_node,
+			     std::chrono::duration<double> diff) {
+	//open the output file for write and clear its content
+	std::ofstream output;
+	output.open(output_file, std::ofstream::trunc);
+	if (!output.is_open())
+		return ERR_OPEN_FILE;
+
+	output << "duration: " << diff.count() << " s" << std::endl;
+
+	//close output file
+	output.close();
+	if (output.is_open())
+		return ERR_CLOSE_FILE;
+
+	return SUCCESS;
+}
+
+static inline uint8_t validate_list_order(const list_node_t &first_node) {
 	list_node_t prev_node = first_node, current_node;
 	while (prev_node->next != nullptr) {
 		current_node = prev_node->next;
@@ -195,19 +224,62 @@ static inline uint8_t validate_order(const list_node_t &first_node) {
 	return SUCCESS;
 }
 
+static uint8_t execute_sort_algorithm_on_list(const char *input_file, const std::string &output_file,
+					       std::chrono::duration<double> (*algorithm)(list_node_t)) {
+	uint8_t result;
+	//open the file with generated data to sort for read
+	list_node_t list = read_to_list(input_file);
 
-static inline void swap_xor_list(list_node &a, list_node &b) {
-	if (a.value == b.value)
-		return;
-	a.value ^= b.value;
-	b.value ^= a.value;
-	a.value ^= b.value;
+	// run algorithm and receive its duration time
+	std::chrono::duration<double> diff = algorithm(list);
+
+	result = validate_list_order(list);
+	if (result)
+		goto error;
+
+	// write results to file
+	result = list_to_write(output_file, list, diff);
+
+error:
+	remove_all_nodes(list);
+
+	return result;
 }
 
-static void swap_tmp_list(list_node &a, list_node &b) {
+static uint8_t execute_search_algorithm_on_list(const char *input_file, const std::string &output_file,
+						 const int32_t searched_number, std::chrono::duration<double> (*algorithm)(list_node_t, const int32_t, bool&)
+) {
+	uint8_t result;
+	bool is_found = false;
+	//open the file with generated data to sort for read
+	list_node_t list = read_to_list(input_file);
+
+	// run algorithm and receive its duration time
+	std::chrono::duration<double> diff = algorithm(list, searched_number, is_found);
+
+	// write results without table to file
+	result = search_result_list_to_write(output_file, diff);
+	if (result)
+		return result;
+
+	remove_all_nodes(list);
+
+	return is_found ? SUCCESS :  SEARCH_FAIL;
+}
+
+
+static inline void swap_xor_list(list_node_t &a, list_node_t &b) {
+	if (a->value == b->value)
+		return;
+	a->next ^= b->next;
+	b->next ^= a->next;
+	a->next ^= b->next;
+}
+
+static void swap_tmp_list(list_node first_node, list_node &a, list_node &b) {
 	long tmp = a.value;
-	a.value = b.value;
-	b.value = tmp;
+	set_list_node(first_node, a, b.value);
+	set_list_node(first_node, b, tmp);
 }
 
 #endif //ENGINEERPROJECT_STRUCTURES_H
