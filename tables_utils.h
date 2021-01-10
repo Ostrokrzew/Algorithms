@@ -66,7 +66,7 @@ static uint8_t search_result_to_write(const std::string &output_file, std::chron
 	if (!output.is_open())
 		return ERR_OPEN_FILE;
 
-	output << "duration: " << diff.count() << " s\n" << std::endl;
+	output << "duration: " << diff.count() << " s" << std::endl;
 
 	//close output file
 	output.close();
@@ -80,7 +80,7 @@ static inline uint8_t validate_order(const int32_t table[]) {
 	for (size_t i = 1; i < AMOUNT; i++) {
 		if (table[i-1] > table[i]) {
 			fprintf(stderr, "%ld should be greater or equal %ld.\n", table[i], table[i-1]);
-//			return ERR_WRG_ORDR;
+			return ERR_WRG_ORDR;
 		}
 	}
 
