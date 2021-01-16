@@ -4,40 +4,40 @@
 #include "headers.h"
 
 static int32_t* read_to_table(const char *input_file) {
-    int32_t *return_ptr = (int32_t *)zmalloc(sizeof(int32_t) * AMOUNT);
+	auto *return_ptr = (int32_t *)zmalloc(sizeof(int32_t) * AMOUNT);
 
-    //open the file with generated data to sort for read
-    FILE *input = fopen(input_file, "r");
-    if (!input) {
-        *return_ptr = ERR_OPEN_FILE;
-        return return_ptr;
-    }
+	//open the file with generated data to sort for read
+	FILE *input = fopen(input_file, "r");
+	if (!input) {
+		*return_ptr = ERR_OPEN_FILE;
+		return return_ptr;
+	}
 
-    //read input file to table
-    char *line = (char *)zmalloc(sizeof(char));
-    size_t len = 0;
+	//read input file to table
+	char *line = (char *)zmalloc(sizeof(char));
+	size_t len = 0;
 
-    for (size_t i = 0; i < AMOUNT; i++) {
-        if (getline(&line, &len, input) == -1) {
-            free(line);
-            *return_ptr = ERR_READ_DATA;
-            return return_ptr;
-        }
-        *(return_ptr + i) = atol(line);
-    }
-    free(line);
+	for (size_t i = 0; i < AMOUNT; i++) {
+		if (getline(&line, &len, input) == -1) {
+			free(line);
+			*return_ptr = ERR_READ_DATA;
+			return return_ptr;
+		}
+		*(return_ptr + i) = atol(line);
+	}
+	free(line);
 
-    //close input file
-    if (fclose(input)) {
-        *return_ptr = ERR_CLOSE_FILE;
-        return return_ptr;
-    }
+	//close input file
+	if (fclose(input)) {
+		*return_ptr = ERR_CLOSE_FILE;
+		return return_ptr;
+	}
 
-    return return_ptr;
+	return return_ptr;
 }
 
 static uint8_t table_to_write(const std::string &output_file, int32_t table[],
-			      std::chrono::duration<double> diff) {
+				  std::chrono::duration<double> diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
@@ -88,7 +88,7 @@ static inline uint8_t validate_order(const int32_t table[]) {
 }
 
 static uint8_t execute_sort_algorithm_on_table(const char *input_file, const std::string &output_file,
-					       std::chrono::duration<double> (*algorithm)(int32_t[])) {
+						   std::chrono::duration<double> (*algorithm)(int32_t[])) {
 	uint8_t result;
 	//open the file with generated data to sort for read
 	int32_t *table = read_to_table(input_file);
@@ -110,7 +110,8 @@ error:
 }
 
 static uint8_t execute_search_algorithm_on_table(const char *input_file, const std::string &output_file,
-						 const int32_t searched_number, std::chrono::duration<double> (*algorithm)(int32_t[], const int32_t, bool&)
+						 const int32_t searched_number, std::chrono::duration<double>
+						         (*algorithm)(int32_t[], const int32_t, bool&)
 ) {
 	uint8_t result;
 	bool is_found = false;

@@ -26,11 +26,11 @@ int main() {
 		return DRAW_NMBR_FAIL;
 	}
 
-	result = run_normal_algorithms(number);
+	result = run_normal_table_algorithms(number);
 	if (result)
 		return result;
 
-	result = run_refactored_algorithms(number);
+	result = run_refactored_table_algorithms(number);
 	if (result)
 		return result;
 

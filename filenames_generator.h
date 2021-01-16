@@ -26,36 +26,38 @@ static void make_dir(const std::string &name) {
 	}
 }
 
-static std::string name_generator(const std::string &name) {
+static std::string name_generator(const std::string &category, const std::string &name) {
 	make_dir(timestamp);
-	return (timestamp + "/" + name + ".txt");
+	if (!category.empty())
+		make_dir(timestamp + "/" + category);
+	return (timestamp + "/" + category + "/" + name + ".txt");
 }
 
 //output files' names
-const static std::string GENERATED_DATA_FILE = name_generator("data-to-sort");
-const static std::string BUBBLESORT_FILE = name_generator("sort-bubble");
-const static std::string QUICKSORT_FILE = name_generator("sort-quick");
-const static std::string MERGESORT_FILE = name_generator("sort-merge");
-const static std::string INSERTIONSORT_FILE = name_generator("sort-insertion");
-const static std::string HEAPSORT_FILE = name_generator("sort-heap");
-const static std::string SELECTIONSORT_FILE = name_generator("sort-selection");
-const static std::string SHELLSSORT_FILE = name_generator("sort-shell");
-const static std::string CIURASSORT_FILE = name_generator("sort-ciura");
-const static std::string LINEARSEARCH_FILE = name_generator("search-linear");
-const static std::string GUARDIANSEARCH_FILE = name_generator("search-guardian");
-const static std::string BINARYSEARCH_FILE = name_generator("search-binary");
-const static std::string MAXMINSEARCH_FILE = name_generator("search-maxmin");
-const static std::string REF_BUBBLESORT_FILE = name_generator("refactored-sort-bubble");
-const static std::string REF_QUICKSORT_FILE = name_generator("refactored-sort-quick");
-const static std::string REF_MERGESORT_FILE = name_generator("refactored-sort-merge");
-const static std::string REF_INSERTIONSORT_FILE = name_generator("refactored-sort-insertion");
-const static std::string REF_HEAPSORT_FILE = name_generator("refactored-sort-heap");
-const static std::string REF_SELECTIONSORT_FILE = name_generator("refactored-sort-selection");
-const static std::string REF_SHELLSSORT_FILE = name_generator("refactored-sort-shell");
-const static std::string REF_CIURASSORT_FILE = name_generator("refactored-sort-ciura");
-const static std::string REF_LINEARSEARCH_FILE = name_generator("refactored-search-linear");
-const static std::string REF_GUARDIANSEARCH_FILE = name_generator("refactored-search-guardian");
-const static std::string REF_BINARYSEARCH_FILE = name_generator("refactored-search-binary");
-const static std::string REF_MAXMINSEARCH_FILE = name_generator("refactored-search-maxmin");
+const static std::string GENERATED_DATA_FILE = name_generator("", "data-to-sort");
+const static std::string TABLE_SORT_BUBBLE = name_generator("table", "sort-bubble");
+const static std::string TABLE_SORT_QUICK = name_generator("table", "sort-quick");
+const static std::string TABLE_SORT_MERGE = name_generator("table", "sort-merge");
+const static std::string TABLE_SORT_INSERTION = name_generator("table", "sort-insertion");
+const static std::string TABLE_SORT_HEAP = name_generator("table", "sort-heap");
+const static std::string TABLE_SORT_SELECTION = name_generator("table", "sort-selection");
+const static std::string TABLE_SORT_SHELL = name_generator("table", "sort-shell");
+const static std::string TABLE_SORT_CIURA = name_generator("table", "sort-ciura");
+const static std::string TABLE_SEARCH_LINEAR = name_generator("table", "search-linear");
+const static std::string TABLE_SEARCH_GUARDIAN = name_generator("table", "search-guardian");
+const static std::string TABLE_SEARCH_BINARY = name_generator("table", "search-binary");
+const static std::string TABLE_SEARCH_EXTREMA = name_generator("table", "search-maxmin");
+const static std::string TABLE_SORT_BUBBLE_REF = name_generator("table", "refactored-sort-bubble");
+const static std::string TABLE_SORT_QUICK_REF = name_generator("table", "refactored-sort-quick");
+const static std::string TABLE_SORT_MERGE_REF = name_generator("table", "refactored-sort-merge");
+const static std::string TABLE_SORT_INSERTION_REF = name_generator("table", "refactored-sort-insertion");
+const static std::string TABLE_SORT_HEAP_REF = name_generator("table", "refactored-sort-heap");
+const static std::string TABLE_SORT_SELECTION_REF = name_generator("table", "refactored-sort-selection");
+const static std::string TABLE_SORT_SHELL_REF = name_generator("table", "refactored-sort-shell");
+const static std::string TABLE_SORT_CIURA_REF = name_generator("table", "refactored-sort-ciura");
+const static std::string TABLE_SEARCH_LINEAR_REF = name_generator("table", "refactored-search-linear");
+const static std::string TABLE_SEARCH_GUARDIAN_REF = name_generator("table", "refactored-search-guardian");
+const static std::string TABLE_SEARCH_BINARY_REF = name_generator("table", "refactored-search-binary");
+const static std::string TABLE_SEARCH_EXTREMA_REF = name_generator("table", "refactored-search-maxmin");
 
 #endif //ENGINEERPROJECT_FILENAMES_GENERATOR_H

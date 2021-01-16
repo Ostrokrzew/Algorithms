@@ -21,23 +21,23 @@
 #define int64_t int_fast64_t
 
 static void* zmalloc(size_t size) {
-    void *ptr = malloc(size);
-    memset(ptr, 0, size);
-    return ptr;
+	void *ptr = malloc(size);
+	memset(ptr, 0, size);
+	return ptr;
 }
 
 static inline void swap_xor(int32_t &a, int32_t &b) {
-    if (a == b)
-        return;
-    a ^= b;
-    b ^= a;
-    a ^= b;
+	if (a == b)
+		return;
+	a ^= b;
+	b ^= a;
+	a ^= b;
 }
 
 static void swap_tmp(long &a, long &b) {
-    long tmp = a;
-    a = b;
-    b = tmp;
+	long tmp = a;
+	a = b;
+	b = tmp;
 }
 
 #endif //ENGINEERPROJECT_UTILS_H

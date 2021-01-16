@@ -1,254 +1,233 @@
 #include "run_algorithms.h"
 
-//initialize collective functions
-uint8_t run_normal_algorithms(const int32_t&number) {
+uint8_t run_normal_table_algorithms(const int32_t&number) {
 	uint8_t result;
 
-	result = run_normal_sort_algorithms();
+	result = run_normal_table_sort_algorithms();
 	if (result)
 		return result;
 
-	result = run_normal_search_algorithms(number);
+	result = run_normal_table_search_algorithms(number);
 	if (result)
 		return result;
 
 	return SUCCESS;
 }
 
-uint8_t run_refactored_algorithms(const int32_t&number) {
+uint8_t run_refactored_table_algorithms(const int32_t&number) {
 	uint8_t result;
 
-	result = run_refactored_sort_algorithms();
+	result = run_refactored_table_sort_algorithms();
 	if (result)
 		return result;
 
-	result = run_refactored_search_algorithms(number);
+	result = run_refactored_table_search_algorithms(number);
 	if (result)
 		return result;
 
 	return SUCCESS;
 }
 
-uint8_t run_normal_sort_algorithms() {
+uint8_t run_normal_table_sort_algorithms() {
 	uint8_t result;
 
-	//sort data by bubblesort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), BUBBLESORT_FILE,
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_BUBBLE,
 						 reinterpret_cast<std::chrono::duration<double> (*)(
-							 int_fast32_t *)>(bubblesort_prerefactored));
+							 int_fast32_t *)>(table_sort_bubble));
 	if(result) {
-		fprintf(stderr, "Bubblesort failed with code %u.", result);
+		fprintf(stderr, "Table bubble sort failed with code %u.", result);
 		return BBL_SORT_FAIL;
 	}
 
-	//sort data by quicksort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), QUICKSORT_FILE,
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_QUICK,
 						 reinterpret_cast<std::chrono::duration<double> (*)(
-							 int_fast32_t *)>(quicksort_prerefactored));
+							 int_fast32_t *)>(table_sort_quick));
 	if(result) {
-		fprintf(stderr, "Quicksort failed with code %u.", result);
+		fprintf(stderr, "Table quick sort failed with code %u.", result);
 		return QCK_SORT_FAIL;
 	}
 
-	//sort data by mergesort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), MERGESORT_FILE,
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_MERGE,
 						 reinterpret_cast<std::chrono::duration<double> (*)(
-							 int_fast32_t *)>(mergesort_prerefactored));
+							 int_fast32_t *)>(table_sort_merge));
 	if(result) {
-		fprintf(stderr, "Mergesort failed with code %u.", result);
+		fprintf(stderr, "Table merge sort failed with code %u.", result);
 		return MRG_SORT_FAIL;
 	}
 
-	//sort data by insertionsort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), INSERTIONSORT_FILE,
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_INSERTION,
 						 reinterpret_cast<std::chrono::duration<double> (*)(
-							 int_fast32_t *)>(insertionsort_prerefactored));
+							 int_fast32_t *)>(table_sort_insertion));
 	if(result) {
-		fprintf(stderr, "Insertionsort failed with code %u.", result);
+		fprintf(stderr, "Table insertion sort failed with code %u.", result);
 		return INS_SORT_FAIL;
 	}
 
-	//sort data by heapsort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), HEAPSORT_FILE,
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_HEAP,
 						 reinterpret_cast<std::chrono::duration<double> (*)(
-							 int_fast32_t *)>(heapsort_prerefactored));
+							 int_fast32_t *)>(table_sort_heap));
 	if(result) {
-		fprintf(stderr, "Heapsort failed with code %u.", result);
+		fprintf(stderr, "Table heap sort failed with code %u.", result);
 		return HP_SORT_FAIL;
 	}
 
-	//sort data by selectionsort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), SELECTIONSORT_FILE,
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_SELECTION,
 						 reinterpret_cast<std::chrono::duration<double> (*)(
-							 int_fast32_t *)>(selectionsort_prerefactored));
+							 int_fast32_t *)>(table_sort_selection));
 	if(result) {
-		fprintf(stderr, "Selectionsort failed with code %u.", result);
+		fprintf(stderr, "Table selection sort failed with code %u.", result);
 		return SLC_SORT_FAIL;
 	}
 
-	//sort data by original Shell's algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), SHELLSSORT_FILE,
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_SHELL,
 						 reinterpret_cast<std::chrono::duration<double> (*)(
-							 int_fast32_t *)>(shellsort_prerefactored));
+							 int_fast32_t *)>(table_sort_shell));
 	if(result) {
-		fprintf(stderr, "Shell's sort failed with code %u.", result);
+		fprintf(stderr, "Table Shell's sort failed with code %u.", result);
 		return SHL_SORT_FAIL;
 	}
 
-	//sort data by Ciura's verion of Shell's algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), CIURASSORT_FILE,
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_CIURA,
 						 reinterpret_cast<std::chrono::duration<double> (*)(
-							 int_fast32_t *)>(ciurassort_prerefactored));
+							 int_fast32_t *)>(table_sort_ciura));
 	if(result) {
-		fprintf(stderr, "Ciura's sort failed with code %u.", result);
+		fprintf(stderr, "Table Ciura's sort failed with code %u.", result);
 		return CRA_SORT_FAIL;
 	}
 
 	return SUCCESS;
 }
 
-uint8_t run_refactored_sort_algorithms() {
+uint8_t run_refactored_table_sort_algorithms() {
 	uint8_t result;
 
-	//sort data by bubblesort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), REF_BUBBLESORT_FILE, bubblesort);
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_BUBBLE_REF,
+						 table_sort_bubble_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored bubblesort failed with code %u.", result);
+		fprintf(stderr, "Refactored table bubble sort failed with code %u.", result);
 		return BBL_SORT_FAIL;
 	}
 
-	//sort data by quicksort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), REF_QUICKSORT_FILE, quicksort);
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_QUICK_REF,
+						 table_sort_quick_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored quicksort failed with code %u.", result);
+		fprintf(stderr, "Refactored table quick sort failed with code %u.", result);
 		return QCK_SORT_FAIL;
 	}
 
-	//sort data by mergesort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), REF_MERGESORT_FILE, mergesort);
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_MERGE_REF,
+						 table_sort_merge_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored mergesort failed with code %u.", result);
+		fprintf(stderr, "Refactored table merge sort failed with code %u.", result);
 		return MRG_SORT_FAIL;
 	}
 
-	//sort data by insertionsort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), REF_INSERTIONSORT_FILE, insertionsort);
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_INSERTION_REF,
+						 table_sort_insertion_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored insertionsort failed with code %u.", result);
+		fprintf(stderr, "Refactored table insertion sort failed with code %u.", result);
 		return INS_SORT_FAIL;
 	}
 
-	//sort data by heapsort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), REF_HEAPSORT_FILE, heapsort);
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_HEAP_REF,
+						 table_sort_heap_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored heapsort failed with code %u.", result);
+		fprintf(stderr, "Refactored table heap sort failed with code %u.", result);
 		return HP_SORT_FAIL;
 	}
 
-	//sort data by selectionsort algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), REF_SELECTIONSORT_FILE, selectionsort);
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_SELECTION_REF,
+						 table_sort_selection_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored selectionsort failed with code %u.", result);
+		fprintf(stderr, "Refactored table selection sort failed with code %u.", result);
 		return SLC_SORT_FAIL;
 	}
 
-	//sort data by original Shell's algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), REF_SHELLSSORT_FILE, shellsort);
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_SHELL_REF,
+						 table_sort_shell_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored Shell's sort failed with code %u.", result);
+		fprintf(stderr, "Refactored table Shell's sort failed with code %u.", result);
 		return SHL_SORT_FAIL;
 	}
 
-	//sort data by Ciura's verion of Shell's algorithm
-	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), REF_CIURASSORT_FILE, ciurassort);
+	result = execute_sort_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SORT_CIURA_REF,
+						 table_sort_ciura_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored Ciura's sort failed with code %u.", result);
+		fprintf(stderr, "Refactored table Ciura's sort failed with code %u.", result);
 		return CRA_SORT_FAIL;
 	}
 
 	return SUCCESS;
 }
 
-uint8_t run_normal_search_algorithms(const int32_t &number) {
+uint8_t run_normal_table_search_algorithms(const int32_t &number) {
 	uint8_t result;
 
-	//search data with linear search algorithm
-	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), LINEARSEARCH_FILE, number,
+	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SEARCH_LINEAR, number,
 						   reinterpret_cast<std::chrono::duration<double> (*)(int_fast32_t *,
-												      const int_fast32_t,
-												      bool &)>(linearsearch_prerefactored));
+						   	const int_fast32_t, bool &)>(table_search_linear));
 	if(result) {
-		fprintf(stderr, "Linear search failed with code %u.", result);
+		fprintf(stderr, "Table linear search failed with code %u.", result);
 		return LNR_SEARCH_FAIL;
 	}
 
-	//search data with linear search with guardian algorithm
-	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), GUARDIANSEARCH_FILE, number,
+	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SEARCH_GUARDIAN, number,
 						   reinterpret_cast<std::chrono::duration<double> (*)(int_fast32_t *,
-												      const int_fast32_t,
-												      bool &)>(guardiansearch_prerefactored));
+						   	const int_fast32_t,bool &)>(table_search_guardian));
 	if(result) {
-		fprintf(stderr, "Linear search with guardian failed with code %u.", result);
+		fprintf(stderr, "Table linear search with guardian failed with code %u.", result);
 		return GRD_SEARCH_FAIL;
 	}
 
-	//search data with binary search algorithm
-	result = execute_search_algorithm_on_table(QUICKSORT_FILE.c_str(), BINARYSEARCH_FILE, number,
+	result = execute_search_algorithm_on_table(TABLE_SORT_QUICK.c_str(), TABLE_SEARCH_BINARY, number,
 						   reinterpret_cast<std::chrono::duration<double> (*)(int_fast32_t *,
-												      const int_fast32_t,
-												      bool &)>(binarysearch_prerefactored));
+						   	const int_fast32_t, bool &)>(table_search_binary));
 	if(result) {
-		fprintf(stderr, "Binary search failed with code %u.", result);
+		fprintf(stderr, "Table binary search failed with code %u.", result);
 		return BNR_SEARCH_FAIL;
 	}
 
-	//search data with extrema search algorithm
-	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), MAXMINSEARCH_FILE, number,
+	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SEARCH_EXTREMA, number,
 						   reinterpret_cast<std::chrono::duration<double> (*)(int_fast32_t *,
-												      const int_fast32_t,
-												      bool &)>(maxminsearch_prerefactored));
+						   	const int_fast32_t, bool &)>(table_search_extrema));
 	if(result) {
-		fprintf(stderr, "Extrema search failed with code %u.", result);
+		fprintf(stderr, "Table extrema search failed with code %u.", result);
 		return EXTR_SEARCH_FAIL;
 	}
 
-	return result;
+	return SUCCESS;
 }
 
-uint8_t run_refactored_search_algorithms(const int32_t &number) {
+uint8_t run_refactored_table_search_algorithms(const int32_t &number) {
 	uint8_t result;
 
-	//search data with linear search algorithm
-	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), REF_LINEARSEARCH_FILE, number,
-						   linearsearch);
+	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SEARCH_LINEAR_REF, number,
+						   table_search_linear_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored linear search failed with code %u.", result);
+		fprintf(stderr, "Refactored table linear search failed with code %u.", result);
 		return LNR_SEARCH_FAIL;
 	}
 
-	//search data with linear search with guardian algorithm
-	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), REF_GUARDIANSEARCH_FILE, number,
-						   guardiansearch);
+	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SEARCH_GUARDIAN_REF, number,
+						   table_search_guardian_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored linear search with guardian failed with code %u.", result);
+		fprintf(stderr, "Refactored table linear search with guardian failed with code %u.", result);
 		return GRD_SEARCH_FAIL;
 	}
 
-	//search data with binary search algorithm
-	result = execute_search_algorithm_on_table(REF_QUICKSORT_FILE.c_str(), REF_BINARYSEARCH_FILE, number,
-						   binarysearch);
+	result = execute_search_algorithm_on_table(TABLE_SORT_QUICK_REF.c_str(), TABLE_SEARCH_BINARY_REF, number,
+						   table_search_binary_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored binary search failed with code %u.", result);
+		fprintf(stderr, "Refactored table binary search failed with code %u.", result);
 		return BNR_SEARCH_FAIL;
 	}
 
-	//search data with extrema search algorithm
-	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), REF_MAXMINSEARCH_FILE, number,
-						   maxminsearch);
+	result = execute_search_algorithm_on_table(GENERATED_DATA_FILE.c_str(), TABLE_SEARCH_EXTREMA_REF, number,
+						   table_search_extrema_rfctrd);
 	if(result) {
-		fprintf(stderr, "Refactored extrema search failed with code %u.", result);
+		fprintf(stderr, "Refactored table extrema search failed with code %u.", result);
 		return EXTR_SEARCH_FAIL;
 	}
 
-	return result;
+	return SUCCESS;
 }

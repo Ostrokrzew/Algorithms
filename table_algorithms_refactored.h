@@ -3,42 +3,42 @@
 
 #include "tables_utils.h"
 
-std::chrono::duration<double> bubblesort(int32_t[]);
-inline void bblsort(int32_t[], size_t);
+std::chrono::duration<double> table_sort_bubble_rfctrd(int32_t[]);
+inline void table_sort_bbl_rfctrd(int32_t[], size_t);
 
-std::chrono::duration<double> heapsort(int32_t[]);
-inline void hsort(int32_t[], size_t);
-inline void restore(int32_t[], size_t, size_t);
+std::chrono::duration<double> table_sort_heap_rfctrd(int32_t[]);
+inline void table_sort_hp_rfctrd(int32_t[], size_t);
+inline void table_restore_rfctrd(int32_t[], size_t, size_t);
 
-std::chrono::duration<double> insertionsort(int32_t[]);
-inline void inssort(int32_t[], size_t);
+std::chrono::duration<double> table_sort_insertion_rfctrd(int32_t[]);
+inline void table_sort_insrt_rfctrd(int32_t[], size_t);
 
-std::chrono::duration<double> mergesort(int32_t[]);
-inline void msort(int32_t[], size_t, size_t);
-inline void merge(int32_t[], size_t, size_t, size_t);
+std::chrono::duration<double> table_sort_merge_rfctrd(int32_t[]);
+inline void table_sort_mrg_rfctrd(int32_t[], size_t, size_t);
+inline void table_merge_rfctrd(int32_t[], size_t, size_t, size_t);
 
-std::chrono::duration<double> quicksort(int32_t[]);
-inline void qsort(int32_t[], size_t, size_t);
+std::chrono::duration<double> table_sort_quick_rfctrd(int32_t[]);
+inline void table_sort_qck_rfctrd(int32_t[], size_t, size_t);
 
-std::chrono::duration<double> selectionsort(int32_t[]);
-inline void slctsort(int32_t[], size_t);
+std::chrono::duration<double> table_sort_selection_rfctrd(int32_t[]);
+inline void table_sort_slct_rfctrd(int32_t[], size_t);
 
-std::chrono::duration<double> shellsort(int32_t[]);
-inline void shlsort(int32_t[], size_t);
+std::chrono::duration<double> table_sort_shell_rfctrd(int32_t[]);
+inline void table_sort_shl_rfctrd(int32_t[], size_t);
 
-std::chrono::duration<double> ciurassort(int32_t[]);
-inline void crsort(int32_t[], size_t);
+std::chrono::duration<double> table_sort_ciura_rfctrd(int32_t[]);
+inline void table_sort_cr_rfctrd(int32_t[], size_t);
 
-std::chrono::duration<double> linearsearch(int32_t[], const int32_t, bool&);
-inline bool lnrsearch(int32_t[], const size_t, const int32_t);
+std::chrono::duration<double> table_search_linear_rfctrd(int32_t[], const int32_t, bool&);
+inline bool table_search_lnr_rfctrd(int32_t[], const size_t, const int32_t);
 
-std::chrono::duration<double> guardiansearch(int32_t[], const int32_t, bool&);
-inline bool grdsearch(int32_t[], const size_t, const int32_t);
+std::chrono::duration<double> table_search_guardian_rfctrd(int32_t[], const int32_t, bool&);
+inline bool table_search_grd_rfctrd(int32_t[], const size_t, const int32_t);
 
-std::chrono::duration<double> binarysearch(int32_t[], const int32_t, bool&);
-inline bool bnrsearch(int32_t[], size_t, size_t, const int32_t);
+std::chrono::duration<double> table_search_binary_rfctrd(int32_t[], const int32_t, bool&);
+inline bool table_search_bnr_rfctrd(int32_t[], size_t, size_t, const int32_t);
 
-std::chrono::duration<double> maxminsearch(int32_t[], const int32_t, bool&);
-inline void mxmnearch(int32_t[], const size_t, int32_t&, int32_t&);
+std::chrono::duration<double> table_search_extrema_rfctrd(int32_t[], const int32_t, bool&);
+inline void table_search_ext_rfctrd(int32_t[], const size_t, int32_t&, int32_t&);
 
 #endif //ENGINEERPROJECT_TABLE_ALGORITHMS_REFACTORED_H

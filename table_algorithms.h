@@ -3,43 +3,43 @@
 
 #include "tables_utils.h"
 
-std::chrono::duration<double> bubblesort_prerefactored(long[]);
-void bblsort_prerefactored(long[], int);
+std::chrono::duration<double> table_sort_bubble(long[]);
+void table_sort_bbl(long[], int);
 
-std::chrono::duration<double> heapsort_prerefactored(long[]);
-void hsort_prerefactored(long[], int);
-void restore_prerefactored(long[], int, int);
+std::chrono::duration<double> table_sort_heap(long[]);
+void table_sort_hp(long[], int);
+void table_restore(long[], int, int);
 
-std::chrono::duration<double> insertionsort_prerefactored(long[]);
-void inssort_prerefactored(long[], int);
+std::chrono::duration<double> table_sort_insertion(long[]);
+void table_sort_insrt(long[], int);
 
-std::chrono::duration<double> mergesort_prerefactored(long[]);
-void msort_prerefactored(long[], int, int);
-void merge_prerefactored(long[], int, int, int);
+std::chrono::duration<double> table_sort_merge(long[]);
+void table_sort_mrg(long[], int, int);
+void table_merge(long[], int, int, int);
 
-std::chrono::duration<double> quicksort_prerefactored(long[]);
-void qsort_prerefactored(long[], int, int);
+std::chrono::duration<double> table_sort_quick(long[]);
+void table_sort_qck(long[], int, int);
 
-std::chrono::duration<double> selectionsort_prerefactored(long[]);
-void slctsort_prerefactored(long[], int);
+std::chrono::duration<double> table_sort_selection(long[]);
+void table_sort_slct(long[], int);
 
-std::chrono::duration<double> shellsort_prerefactored(long[]);
-void shlsort_prerefactored(long[], int);
+std::chrono::duration<double> table_sort_shell(long[]);
+void table_sort_shl(long[], int);
 
-std::chrono::duration<double> ciurassort_prerefactored(long[]);
-void crsort_prerefactored(long[], int);
+std::chrono::duration<double> table_sort_ciura(long[]);
+void table_sort_cr(long[], int);
 
-std::chrono::duration<double> linearsearch_prerefactored(long[], long, bool&);
-bool lnrsearch_prerefactored(long[], int, long);
+std::chrono::duration<double> table_search_linear(long[], long, bool&);
+bool table_search_lnr(long[], int, long);
 
-std::chrono::duration<double> guardiansearch_prerefactored(long[], long, bool&);
-bool grdsearch_prerefactored(long[], int, long);
+std::chrono::duration<double> table_search_guardian(long[], long, bool&);
+bool table_search_grd(long[], int, long);
 
-std::chrono::duration<double> binarysearch_prerefactored(long[], long, bool&);
-bool bnrsearch_prerefactored(long[], int, int, long);
+std::chrono::duration<double> table_search_binary(long[], long, bool&);
+bool table_search_bnr(long[], int, int, long);
 
-std::chrono::duration<double> maxminsearch_prerefactored(long[], long, bool&);
-long maxsearch_prerefactored(long[], int);
-long minsearch_prerefactored(long[], int);
+std::chrono::duration<double> table_search_extrema(long[], long, bool&);
+long table_search_max(long[], int);
+long table_search_min(long[], int);
 
 #endif //ENGINEERPROJECT_TABLE_ALGORITHMS_H
