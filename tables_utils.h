@@ -14,8 +14,8 @@ static int32_t* read_to_table(const char *input_file) {
 	}
 
 	//read input file to table
-	char *line = (char *)zmalloc(sizeof(char));
-	size_t len = 0;
+	char *line = (char *)zmalloc(10 * sizeof(char));
+	size_t len = 10;
 
 	for (size_t i = 0; i < AMOUNT; i++) {
 		if (getline(&line, &len, input) == -1) {
@@ -36,15 +36,14 @@ static int32_t* read_to_table(const char *input_file) {
 	return return_ptr;
 }
 
-static uint8_t table_to_write(const std::string &output_file, int32_t table[],
-				  std::chrono::duration<double> diff) {
+static uint8_t table_to_write(const std::string &output_file, int32_t table[], double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
 	if (!output.is_open())
 		return ERR_OPEN_FILE;
 
-	output << "duration: " << diff.count() << " s\n" << std::endl;
+	output << "duration: " << diff << " s\n" << std::endl;
 
 	//save output to file
 	for (size_t i = 0; i < AMOUNT; i++) {
@@ -59,14 +58,14 @@ static uint8_t table_to_write(const std::string &output_file, int32_t table[],
 	return SUCCESS;
 }
 
-static uint8_t search_result_to_write(const std::string &output_file, std::chrono::duration<double> diff) {
+static uint8_t search_result_to_write(const std::string &output_file, double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
 	if (!output.is_open())
 		return ERR_OPEN_FILE;
 
-	output << "duration: " << diff.count() << " s" << std::endl;
+	output << "duration: " << diff << " s" << std::endl;
 
 	//close output file
 	output.close();
@@ -92,6 +91,8 @@ static uint8_t execute_sort_algorithm_on_table(const char *input_file, const std
 	uint8_t result;
 	//open the file with generated data to sort for read
 	int32_t *table = read_to_table(input_file);
+	if (*table == ERR_OPEN_FILE || *table == ERR_READ_DATA || *table == ERR_CLOSE_FILE)
+		return *table;
 
 	// run algorithm and receive its duration time
 	std::chrono::duration<double> diff = algorithm(table);
@@ -101,7 +102,7 @@ static uint8_t execute_sort_algorithm_on_table(const char *input_file, const std
 		goto error;
 
 	// write results to file
-	result = table_to_write(output_file, table, diff);
+	result = table_to_write(output_file, table, diff.count());
 
 error:
 	free(table);
@@ -117,18 +118,34 @@ static uint8_t execute_search_algorithm_on_table(const char *input_file, const s
 	bool is_found = false;
 	//open the file with generated data to sort for read
 	int32_t *table = read_to_table(input_file);
+	if (*table == ERR_OPEN_FILE || *table == ERR_READ_DATA || *table == ERR_CLOSE_FILE)
+		return *table;
 
 	// run algorithm and receive its duration time
 	std::chrono::duration<double> diff = algorithm(table, searched_number, is_found);
 
 	// write results without table to file
-	result = search_result_to_write(output_file, diff);
+	result = search_result_to_write(output_file, diff.count());
 	if (result)
 		return result;
 
 	free(table);
 
 	return is_found ? SUCCESS :  SEARCH_FAIL;
+}
+
+static inline void swap_xor_table(int32_t &a, int32_t &b) {
+	if (a == b)
+		return;
+	a ^= b;
+	b ^= a;
+	a ^= b;
+}
+
+static void swap_tmp_table(long &a, long &b) {
+	long tmp = a;
+	a = b;
+	b = tmp;
 }
 
 #endif //ENGINEERPROJECT_TABLES_UTILS_H

@@ -36,7 +36,7 @@ int main() {
 
 	//finish program
 	fprintf(stdout, "Every algorithm done its work. It's time to say goodbye.\n"
-		"Sławomir Jankowski 2020");
+		"Sławomir Jankowski 2020/21");
 
 	return SUCCESS;
 }

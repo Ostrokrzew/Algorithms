@@ -5,14 +5,14 @@ std::chrono::duration<double> list_sort_bubble(list_node_t first_node) {
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start sorting
-	list_sort_bbl(first_node);
+	list_sort_bbl(*first_node);
 
 	//stop counting time
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort list with bubble sort algorithm: %f s\n", diff);
+	fprintf(stdout, "Time to sort list with bubble sort algorithm: %f s\n", diff.count());
 
 	//return duration time
 	return diff;
@@ -45,15 +45,42 @@ std::chrono::duration<double> list_sort_heap(list_node_t first_node) {
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
 	//start sorting
-	list_sort_hp(first_node);
+	list_sort_hp(*first_node);
 
 	//stop counting time
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort list with heap sort algorithm: %f s\n", diff);
+	fprintf(stdout, "Time to sort list with heap sort algorithm: %f s\n", diff.count());
 
 	//return duration time
 	return diff;
 }
+
+//void list_sort_hp(list_node first_node) {
+//	int list_len = get_list_lenght(first_node);
+//
+//	for (int j = list_len / 2; j > 0; --j) {
+//		list_restore(table, j, length);
+//	}
+//	do {
+//		swap_tmp_list(first_node, table[length - 1], table[0]);
+//		length -= 1;
+//		list_restore(table, 1, length);
+//	} while (length > 1);
+//}
+//
+//void list_restore(list_node first_node, int j, int length) {
+//	long tmp = table[j-1];
+//	while (j <= (length / 2)) {
+//		int k = j * 2;
+//		if ((k < length) && (table[k-1] < table[k]))
+//			k += 1;
+//		if (tmp >= table[k-1])
+//			break;
+//		table[j-1] = table[k-1];
+//		j = k;
+//	}
+//	table[j-1] = tmp;
+//}

@@ -134,9 +134,8 @@ static inline void update_metalist(list_controler_t &list_controler, list_node_t
 	list_controler->tail = current_node;
 }
 
-static uint8_t read_to_list(const char *input_file) {
-	list_node_t node = init_list_node();
-	list_node_t first_node = node;
+static uint8_t read_to_list(const char *input_file, list_node_t &first_node) {
+	list_node_t current_node = first_node;
 
 	//open the file with generated data to sort for read
 	FILE *input = fopen(input_file, "r");
@@ -153,12 +152,12 @@ static uint8_t read_to_list(const char *input_file) {
 			free(line);
 			return ERR_READ_DATA;
 		}
-		node->value = atol(line);
-		node->next = init_list_node();
-		node = node->next;
+		current_node->value = atol(line);
+		current_node->next = init_list_node();
+		current_node = current_node->next;
 	}
 	free(line);
-	remove_list_node(first_node, node);
+	remove_list_node(first_node, current_node);
 
 	//close input file
 	if (fclose(input))
@@ -167,15 +166,14 @@ static uint8_t read_to_list(const char *input_file) {
 	return SUCCESS;
 }
 
-static uint8_t list_to_write(const std::string &output_file, list_node_t &first_node,
-			     std::chrono::duration<double> diff) {
+static uint8_t list_to_write(const std::string &output_file, list_node_t &first_node, double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
 	if (!output.is_open())
 		return ERR_OPEN_FILE;
 
-	output << "duration: " << diff.count() << " s\n" << std::endl;
+	output << "duration: " << diff << " s\n" << std::endl;
 
 	//save output to file
 	list_node_t &current_node = first_node;
@@ -192,15 +190,14 @@ static uint8_t list_to_write(const std::string &output_file, list_node_t &first_
 	return SUCCESS;
 }
 
-static uint8_t search_result_list_to_write(const std::string &output_file, list_node_t &first_node,
-					   std::chrono::duration<double> diff) {
+static uint8_t search_result_list_to_write(const std::string &output_file, list_node_t &first_node, double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
 	if (!output.is_open())
 		return ERR_OPEN_FILE;
 
-	output << "duration: " << diff.count() << " s" << std::endl;
+	output << "duration: " << diff << " s" << std::endl;
 
 	//close output file
 	output.close();
@@ -210,7 +207,7 @@ static uint8_t search_result_list_to_write(const std::string &output_file, list_
 	return SUCCESS;
 }
 
-static inline uint8_t validate_list_order(const list_node_t &first_node) {
+static inline uint8_t validate_list_order(list_node_t const &first_node) {
 	list_node_t prev_node = first_node, current_node;
 	while (prev_node->next != nullptr) {
 		current_node = prev_node->next;
@@ -225,10 +222,13 @@ static inline uint8_t validate_list_order(const list_node_t &first_node) {
 }
 
 static uint8_t execute_sort_algorithm_on_list(const char *input_file, const std::string &output_file,
-					      std::chrono::duration<double> (*algorithm)(list_node_t)) {
+					      std::chrono::duration<double> (*algorithm)(&list_node_t)) {
 	uint8_t result;
+	list_node_t list = init_list_node();
 	//open the file with generated data to sort for read
-	list_node_t list = read_to_list(input_file);
+	result = read_to_list(input_file, list);
+	if (result)
+		return result;
 
 	// run algorithm and receive its duration time
 	std::chrono::duration<double> diff = algorithm(list);
@@ -238,7 +238,7 @@ static uint8_t execute_sort_algorithm_on_list(const char *input_file, const std:
 		goto error;
 
 	// write results to file
-	result = list_to_write(output_file, list, diff);
+	result = list_to_write(output_file, list, diff.count());
 
 error:
 	remove_all_nodes(list);
@@ -247,18 +247,22 @@ error:
 }
 
 static uint8_t execute_search_algorithm_on_list(const char *input_file, const std::string &output_file,
-						 const int32_t searched_number, std::chrono::duration<double> (*algorithm)(list_node_t, const int32_t, bool&)
+						 const int32_t searched_number, std::chrono::duration<double>
+						         (*algorithm)(list_node_t, const int32_t, bool&)
 ) {
 	uint8_t result;
+	list_node_t list = init_list_node();;
 	bool is_found = false;
 	//open the file with generated data to sort for read
-	list_node_t list = read_to_list(input_file);
+	result = read_to_list(input_file, list);
+	if (result)
+		return result;
 
 	// run algorithm and receive its duration time
 	std::chrono::duration<double> diff = algorithm(list, searched_number, is_found);
 
 	// write results without table to file
-	result = search_result_list_to_write(output_file, diff);
+	result = search_result_list_to_write(output_file, list, diff.count());
 	if (result)
 		return result;
 
@@ -278,8 +282,8 @@ static inline void swap_xor_list(list_node_t &a, list_node_t &b) {
 
 static void swap_tmp_list(list_node first_node, list_node &a, list_node &b) {
 	long tmp = a.value;
-	set_list_node(first_node, a, b.value);
-	set_list_node(first_node, b, tmp);
+	set_list_node(&first_node, &a, b.value);
+	set_list_node(&first_node, &b, tmp);
 }
 
 static int get_list_lenght(list_node first_node) {

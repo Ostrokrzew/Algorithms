@@ -12,7 +12,7 @@ std::chrono::duration<double> list_sort_bubble_rfctrd(list_node_t first_node) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort list with refactored heap sort algorithm: %f s\n", diff);
+	fprintf(stdout, "Time to sort list with refactored heap sort algorithm: %f s\n", diff.count());
 
 	//return duration time
 	return diff;

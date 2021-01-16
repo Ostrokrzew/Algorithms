@@ -26,18 +26,4 @@ static void* zmalloc(size_t size) {
 	return ptr;
 }
 
-static inline void swap_xor(int32_t &a, int32_t &b) {
-	if (a == b)
-		return;
-	a ^= b;
-	b ^= a;
-	a ^= b;
-}
-
-static void swap_tmp(long &a, long &b) {
-	long tmp = a;
-	a = b;
-	b = tmp;
-}
-
 #endif //ENGINEERPROJECT_UTILS_H
