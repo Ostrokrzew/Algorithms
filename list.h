@@ -4,7 +4,7 @@
 #include "headers.h"
 
 typedef struct list {
-	u32 value;
+	i32 value;
 	struct list *next;
 } list_node;
 
@@ -134,7 +134,7 @@ static inline void update_metalist(list_controler_t &list_controler, list_node_t
 	list_controler->tail = current_node;
 }
 
-static u8 read_to_list(const char *input_file, list_node_t &first_node) {
+static u8 list_data_read(const char *input_file, list_node_t &first_node) {
 	list_node_t current_node = first_node;
 
 	//open the file with generated data to sort for read
@@ -166,7 +166,7 @@ static u8 read_to_list(const char *input_file, list_node_t &first_node) {
 	return SUCCESS;
 }
 
-static u8 list_to_write(const std::string &output_file, list_node_t &first_node, double diff) {
+static u8 list_sort_result_write(const std::string &output_file, list_node_t const &first_node, const double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
@@ -176,7 +176,7 @@ static u8 list_to_write(const std::string &output_file, list_node_t &first_node,
 	output << "duration: " << diff << " s\n" << std::endl;
 
 	//save output to file
-	list_node_t &current_node = first_node;
+	list_node_t current_node = first_node;
 	do {
 		output << current_node->value << std::endl;
 		current_node = current_node->next;
@@ -190,7 +190,7 @@ static u8 list_to_write(const std::string &output_file, list_node_t &first_node,
 	return SUCCESS;
 }
 
-static u8 search_result_list_to_write(const std::string &output_file, list_node_t &first_node, double diff) {
+static u8 list_search_result_write(const std::string &output_file, const double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
@@ -226,19 +226,19 @@ static u8 execute_sort_algorithm_on_list(const char *input_file, const std::stri
 	u8 result;
 	list_node_t list = init_list_node();
 	//open the file with generated data to sort for read
-	result = read_to_list(input_file, list);
+	result = list_data_read(input_file, list);
 	if (result)
 		return result;
 
 	// run algorithm and receive its duration time
 	std::chrono::duration<double> diff = algorithm(list);
 
-	result = validate_list_order(list);
+	// write results to file
+	result = list_sort_result_write(output_file, list, diff.count());
 	if (result)
 		goto error;
 
-	// write results to file
-	result = list_to_write(output_file, list, diff.count());
+	result = validate_list_order(list);
 
 error:
 	remove_all_nodes(list);
@@ -254,7 +254,7 @@ static u8 execute_search_algorithm_on_list(const char *input_file, const std::st
 	list_node_t list = init_list_node();;
 	bool is_found = false;
 	//open the file with generated data to sort for read
-	result = read_to_list(input_file, list);
+	result = list_data_read(input_file, list);
 	if (result)
 		return result;
 
@@ -262,7 +262,7 @@ static u8 execute_search_algorithm_on_list(const char *input_file, const std::st
 	std::chrono::duration<double> diff = algorithm(list, searched_number, is_found);
 
 	// write results without table to file
-	result = search_result_list_to_write(output_file, list, diff.count());
+	result = list_search_result_write(output_file, diff.count());
 	if (result)
 		return result;
 

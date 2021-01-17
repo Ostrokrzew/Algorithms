@@ -231,21 +231,21 @@ u8 run_refactored_table_search_algorithms(const i32 &number) {
 
 	return SUCCESS;
 }
-//
-//u8 run_normal_list_algorithms(const i32 &number) {
-//	u8 result;
-//
-//	result = run_normal_list_sort_algorithms();
-//	if (result)
-//		return result;
-//
+
+u8 run_normal_list_algorithms(const i32 &number) {
+	u8 result;
+
+	result = run_normal_list_sort_algorithms();
+	if (result)
+		return result;
+
 //	result = run_normal_list_search_algorithms(number);
 //	if (result)
 //		return result;
 //
-//	return SUCCESS;
-//}
-//
+	return SUCCESS;
+}
+
 //u8 run_refactored_list_algorithms(const i32 &number) {
 //	u8 result;
 //
@@ -259,18 +259,18 @@ u8 run_refactored_table_search_algorithms(const i32 &number) {
 //
 //	return SUCCESS;
 //}
-//
-//u8 run_normal_list_sort_algorithms() {
-//	u8 result;
-//
-//	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_BUBBLE,
-//						reinterpret_cast<std::chrono::duration<double> (*)(
-//							list_node_t&)>(list_sort_bubble));
-//	if(result) {
-//		fprintf(stderr, "List bubble sort failed with code %u.", result);
-//		return BBL_SORT_FAIL;
-//	}
-//
+
+u8 run_normal_list_sort_algorithms() {
+	u8 result;
+
+	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_BUBBLE,
+						reinterpret_cast<std::chrono::duration<double> (*)(
+							list_node_t&)>(list_sort_bubble));
+	if(result) {
+		fprintf(stderr, "List bubble sort failed with code %u.", result);
+		return BBL_SORT_FAIL;
+	}
+
 //	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_QUICK,
 //						 reinterpret_cast<std::chrono::duration<double> (*)(
 //							 list_node_t&)>(list_sort_quick));
@@ -327,9 +327,9 @@ u8 run_refactored_table_search_algorithms(const i32 &number) {
 //		return CRA_SORT_FAIL;
 //	}
 //
-//	return SUCCESS;
-//}
-//
+	return SUCCESS;
+}
+
 //u8 run_refactored_list_sort_algorithms() {
 //	u8 result;
 //

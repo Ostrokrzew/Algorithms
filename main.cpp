@@ -25,12 +25,16 @@ int main() {
 		fprintf(stderr, "Drawing random element from data failed with code %u.", result);
 		return DRAW_NMBR_FAIL;
 	}
+//
+//	result = run_normal_table_algorithms(number);
+//	if (result)
+//		return result;
+//
+//	result = run_refactored_table_algorithms(number);
+//	if (result)
+//		return result;
 
-	result = run_normal_table_algorithms(number);
-	if (result)
-		return result;
-
-	result = run_refactored_table_algorithms(number);
+	result = run_normal_list_algorithms(number);
 	if (result)
 		return result;
 

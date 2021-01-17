@@ -5,7 +5,7 @@
 
 typedef struct binary_tree {
 	struct binary_tree *parent;
-	u32 value;
+	i32 value;
 	struct binary_tree *left;
 	struct binary_tree *right;
 } binary_node;

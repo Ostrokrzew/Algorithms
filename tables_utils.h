@@ -3,7 +3,7 @@
 
 #include "headers.h"
 
-static i32* read_to_table(const char *input_file) {
+static i32* table_data_read(const char *input_file) {
 	auto *return_ptr = (i32 *)zmalloc(sizeof(i32) * AMOUNT);
 
 	//open the file with generated data to sort for read
@@ -36,7 +36,7 @@ static i32* read_to_table(const char *input_file) {
 	return return_ptr;
 }
 
-static u8 table_to_write(const std::string &output_file, i32 table[], double diff) {
+static u8 table_sort_result_write(const std::string &output_file, const int_fast32_t *table, const double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
@@ -58,7 +58,7 @@ static u8 table_to_write(const std::string &output_file, i32 table[], double dif
 	return SUCCESS;
 }
 
-static u8 search_result_to_write(const std::string &output_file, double diff) {
+static u8 table_search_result_write(const std::string &output_file, const double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
@@ -90,19 +90,19 @@ static u8 execute_sort_algorithm_on_table(const char *input_file, const std::str
 					       std::chrono::duration<double> (*algorithm)(i32[])) {
 	u8 result;
 	//open the file with generated data to sort for read
-	i32 *table = read_to_table(input_file);
+	i32 *table = table_data_read(input_file);
 	if (*table == ERR_OPEN_FILE || *table == ERR_READ_DATA || *table == ERR_CLOSE_FILE)
 		return *table;
 
 	// run algorithm and receive its duration time
 	std::chrono::duration<double> diff = algorithm(table);
 
-	result = validate_order(table);
+	// write results to file
+	result = table_sort_result_write(output_file, table, diff.count());
 	if (result)
 		goto error;
 
-	// write results to file
-	result = table_to_write(output_file, table, diff.count());
+	result = validate_order(table);
 
 error:
 	free(table);
@@ -117,7 +117,7 @@ static u8 execute_search_algorithm_on_table(const char *input_file, const std::s
 	u8 result;
 	bool is_found = false;
 	//open the file with generated data to sort for read
-	i32 *table = read_to_table(input_file);
+	i32 *table = table_data_read(input_file);
 	if (*table == ERR_OPEN_FILE || *table == ERR_READ_DATA || *table == ERR_CLOSE_FILE)
 		return *table;
 
@@ -125,7 +125,7 @@ static u8 execute_search_algorithm_on_table(const char *input_file, const std::s
 	std::chrono::duration<double> diff = algorithm(table, searched_number, is_found);
 
 	// write results without table to file
-	result = search_result_to_write(output_file, diff.count());
+	result = table_search_result_write(output_file, diff.count());
 	if (result)
 		return result;
 

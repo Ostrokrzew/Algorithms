@@ -1,11 +1,11 @@
-//#ifndef ENGINEERPROJECT_LIST_ALGORITHMS_H
-//#define ENGINEERPROJECT_LIST_ALGORITHMS_H
-//
-//#include "list.h"
-//
-//std::chrono::duration<double> list_sort_bubble(struct list*&);
-//void list_sort_bbl(struct list*&);
-//
+#ifndef ENGINEERPROJECT_LIST_ALGORITHMS_H
+#define ENGINEERPROJECT_LIST_ALGORITHMS_H
+
+#include "list.h"
+
+std::chrono::duration<double> list_sort_bubble(struct list*&);
+void list_sort_bbl(struct list*&);
+
 //std::chrono::duration<double> list_sort_heap(struct list*&);
 //void list_sort_hp(struct list*&);
 //void list_restore(struct list*&, int);
@@ -42,4 +42,4 @@
 //long list_search_max(struct list*&);
 //long list_search_min(struct list*&);
 //
-//#endif //ENGINEERPROJECT_LIST_ALGORITHMS_H
+#endif //ENGINEERPROJECT_LIST_ALGORITHMS_H
