@@ -4,20 +4,20 @@
 #include "headers.h"
 
 //declare collective functions
-uint8_t run_normal_table_algorithms(const int32_t &number);
-uint8_t run_normal_table_sort_algorithms();
-uint8_t run_normal_table_search_algorithms(const int32_t &number);
+u8 run_normal_table_algorithms(const i32 &number);
+u8 run_normal_table_sort_algorithms();
+u8 run_normal_table_search_algorithms(const i32 &number);
 
-uint8_t run_refactored_table_algorithms(const int32_t &number);
-uint8_t run_refactored_table_sort_algorithms();
-uint8_t run_refactored_table_search_algorithms(const int32_t &number);
+u8 run_refactored_table_algorithms(const i32 &number);
+u8 run_refactored_table_sort_algorithms();
+u8 run_refactored_table_search_algorithms(const i32 &number);
 
-uint8_t run_normal_list_algorithms(const int32_t &number);
-uint8_t run_normal_list_sort_algorithms();
-uint8_t run_normal_list_search_algorithms(const int32_t &number);
+u8 run_normal_list_algorithms(const i32 &number);
+u8 run_normal_list_sort_algorithms();
+u8 run_normal_list_search_algorithms(const i32 &number);
 
-uint8_t run_refactored_list_algorithms(const int32_t &number);
-uint8_t run_refactored_list_sort_algorithms();
-uint8_t run_refactored_list_search_algorithms(const int32_t &number);
+u8 run_refactored_list_algorithms(const i32 &number);
+u8 run_refactored_list_sort_algorithms();
+u8 run_refactored_list_search_algorithms(const i32 &number);
 
 #endif //ENGINEERPROJECT_RUN_ALGORITHMS_H

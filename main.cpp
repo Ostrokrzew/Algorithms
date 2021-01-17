@@ -9,8 +9,8 @@
 
 //run program
 int main() {
-	uint8_t result;
-	int32_t number = NULL;
+	u8 result;
+	i32 number = NULL;
 
 	//generate data to sort
 	result = random_number_generator(GENERATED_DATA_FILE);

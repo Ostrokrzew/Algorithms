@@ -3,8 +3,8 @@
 
 #include "headers.h"
 
-static int32_t* read_to_table(const char *input_file) {
-	auto *return_ptr = (int32_t *)zmalloc(sizeof(int32_t) * AMOUNT);
+static i32* read_to_table(const char *input_file) {
+	auto *return_ptr = (i32 *)zmalloc(sizeof(i32) * AMOUNT);
 
 	//open the file with generated data to sort for read
 	FILE *input = fopen(input_file, "r");
@@ -14,8 +14,8 @@ static int32_t* read_to_table(const char *input_file) {
 	}
 
 	//read input file to table
-	char *line = (char *)zmalloc(10 * sizeof(char));
-	size_t len = 10;
+	char *line = (char *)zmalloc(12 * sizeof(char));
+	size_t len = 12;
 
 	for (size_t i = 0; i < AMOUNT; i++) {
 		if (getline(&line, &len, input) == -1) {
@@ -36,7 +36,7 @@ static int32_t* read_to_table(const char *input_file) {
 	return return_ptr;
 }
 
-static uint8_t table_to_write(const std::string &output_file, int32_t table[], double diff) {
+static u8 table_to_write(const std::string &output_file, i32 table[], double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
@@ -58,7 +58,7 @@ static uint8_t table_to_write(const std::string &output_file, int32_t table[], d
 	return SUCCESS;
 }
 
-static uint8_t search_result_to_write(const std::string &output_file, double diff) {
+static u8 search_result_to_write(const std::string &output_file, double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
@@ -75,7 +75,7 @@ static uint8_t search_result_to_write(const std::string &output_file, double dif
 	return SUCCESS;
 }
 
-static inline uint8_t validate_order(const int32_t table[]) {
+static inline u8 validate_order(const i32 table[]) {
 	for (size_t i = 1; i < AMOUNT; i++) {
 		if (table[i-1] > table[i]) {
 			fprintf(stderr, "%ld should be greater or equal %ld.\n", table[i], table[i-1]);
@@ -86,11 +86,11 @@ static inline uint8_t validate_order(const int32_t table[]) {
 	return SUCCESS;
 }
 
-static uint8_t execute_sort_algorithm_on_table(const char *input_file, const std::string &output_file,
-					       std::chrono::duration<double> (*algorithm)(int32_t[])) {
-	uint8_t result;
+static u8 execute_sort_algorithm_on_table(const char *input_file, const std::string &output_file,
+					       std::chrono::duration<double> (*algorithm)(i32[])) {
+	u8 result;
 	//open the file with generated data to sort for read
-	int32_t *table = read_to_table(input_file);
+	i32 *table = read_to_table(input_file);
 	if (*table == ERR_OPEN_FILE || *table == ERR_READ_DATA || *table == ERR_CLOSE_FILE)
 		return *table;
 
@@ -110,14 +110,14 @@ error:
 	return result;
 }
 
-static uint8_t execute_search_algorithm_on_table(const char *input_file, const std::string &output_file,
-						 const int32_t searched_number, std::chrono::duration<double>
-						         (*algorithm)(int32_t[], const int32_t, bool&)
+static u8 execute_search_algorithm_on_table(const char *input_file, const std::string &output_file,
+						 const i32 searched_number, std::chrono::duration<double>
+						         (*algorithm)(i32[], const i32, bool&)
 ) {
-	uint8_t result;
+	u8 result;
 	bool is_found = false;
 	//open the file with generated data to sort for read
-	int32_t *table = read_to_table(input_file);
+	i32 *table = read_to_table(input_file);
 	if (*table == ERR_OPEN_FILE || *table == ERR_READ_DATA || *table == ERR_CLOSE_FILE)
 		return *table;
 
@@ -134,7 +134,7 @@ static uint8_t execute_search_algorithm_on_table(const char *input_file, const s
 	return is_found ? SUCCESS :  SEARCH_FAIL;
 }
 
-static inline void swap_xor_table(int32_t &a, int32_t &b) {
+static inline void swap_xor_table(i32 &a, i32 &b) {
 	if (a == b)
 		return;
 	a ^= b;

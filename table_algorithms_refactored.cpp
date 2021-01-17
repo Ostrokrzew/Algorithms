@@ -1,7 +1,7 @@
 #include "table_algorithms_refactored.h"
 
 /*** BUBBLE SORT ***/
-std::chrono::duration<double> table_sort_bubble_rfctrd(int32_t table[]) {
+std::chrono::duration<double> table_sort_bubble_rfctrd(i32 table[]) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -19,7 +19,7 @@ std::chrono::duration<double> table_sort_bubble_rfctrd(int32_t table[]) {
 	return diff;
 }
 
-inline void table_sort_bbl_rfctrd(int32_t table[], size_t length) {
+inline void table_sort_bbl_rfctrd(i32 table[], size_t length) {
 	bool change;
 	size_t i, j;
 	for (i = 0; i < length; i++) {
@@ -36,7 +36,7 @@ inline void table_sort_bbl_rfctrd(int32_t table[], size_t length) {
 }
 
 /*** HEAP SORT ***/
-std::chrono::duration<double> table_sort_heap_rfctrd(int32_t table[]) {
+std::chrono::duration<double> table_sort_heap_rfctrd(i32 table[]) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -54,7 +54,7 @@ std::chrono::duration<double> table_sort_heap_rfctrd(int32_t table[]) {
 	return diff;
 }
 
-inline void table_sort_hp_rfctrd(int32_t table[], size_t length) {
+inline void table_sort_hp_rfctrd(i32 table[], size_t length) {
 	size_t j;
 	for (j = (length >> 1); j > 0; --j) {
 		table_restore_rfctrd(table, j, length);
@@ -66,8 +66,8 @@ inline void table_sort_hp_rfctrd(int32_t table[], size_t length) {
 	} while (length > 1);
 }
 
-inline void table_restore_rfctrd(int32_t table[], size_t j, size_t length) {
-	int32_t tmp = table[j-1];
+inline void table_restore_rfctrd(i32 table[], size_t j, size_t length) {
+	i32 tmp = table[j-1];
 	size_t k;
 
 	while (j <= (length >> 1)) {
@@ -83,7 +83,7 @@ inline void table_restore_rfctrd(int32_t table[], size_t j, size_t length) {
 }
 
 /*** INSERTION SORT ***/
-std::chrono::duration<double> table_sort_insertion_rfctrd(int32_t table[]) {
+std::chrono::duration<double> table_sort_insertion_rfctrd(i32 table[]) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -101,8 +101,8 @@ std::chrono::duration<double> table_sort_insertion_rfctrd(int32_t table[]) {
 	return diff;
 }
 
-inline void table_sort_insrt_rfctrd(int32_t table[], size_t length) {
-	int32_t tmp;
+inline void table_sort_insrt_rfctrd(i32 table[], size_t length) {
+	i32 tmp;
 	size_t i, j;
 	for (i = 1; i < length; ++i) {
 		tmp = table[i];
@@ -116,7 +116,7 @@ inline void table_sort_insrt_rfctrd(int32_t table[], size_t length) {
 }
 
 /*** MERGE SORT ***/
-std::chrono::duration<double> table_sort_merge_rfctrd(int32_t table[]) {
+std::chrono::duration<double> table_sort_merge_rfctrd(i32 table[]) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -134,7 +134,7 @@ std::chrono::duration<double> table_sort_merge_rfctrd(int32_t table[]) {
 	return diff;
 }
 
-inline void table_sort_mrg_rfctrd(int32_t table[], size_t left, size_t right) {
+inline void table_sort_mrg_rfctrd(i32 table[], size_t left, size_t right) {
 	if (left < right) {
 		size_t middle = (left + right) >> 1;
 		table_sort_mrg_rfctrd(table, left, middle);
@@ -143,10 +143,10 @@ inline void table_sort_mrg_rfctrd(int32_t table[], size_t left, size_t right) {
 	}
 }
 
-inline void table_merge_rfctrd(int32_t table[], size_t left, size_t middle, size_t right) {
+inline void table_merge_rfctrd(i32 table[], size_t left, size_t middle, size_t right) {
 	size_t i, j;
 	//copy table content to temporary table
-	auto *tmp_table = (int32_t*)zmalloc(sizeof(int32_t) * AMOUNT);
+	auto *tmp_table = (i32*)zmalloc(sizeof(i32) * AMOUNT);
 	for (i = 0; i < AMOUNT; i++)
 		tmp_table[i] = table[i];
 
@@ -170,7 +170,7 @@ inline void table_merge_rfctrd(int32_t table[], size_t left, size_t middle, size
 }
 
 /*** QUICK SORT ***/
-std::chrono::duration<double> table_sort_quick_rfctrd(int32_t table[]) {
+std::chrono::duration<double> table_sort_quick_rfctrd(i32 table[]) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -188,7 +188,7 @@ std::chrono::duration<double> table_sort_quick_rfctrd(int32_t table[]) {
 	return diff;
 }
 
-inline void table_sort_qck_rfctrd(int32_t table[], size_t left, size_t right) {
+inline void table_sort_qck_rfctrd(i32 table[], size_t left, size_t right) {
 	size_t i;
 	if (left < right) {
 		size_t splitter = left;
@@ -203,7 +203,7 @@ inline void table_sort_qck_rfctrd(int32_t table[], size_t left, size_t right) {
 }
 
 /*** SELECTION SORT ***/
-std::chrono::duration<double> table_sort_selection_rfctrd(int32_t table[]) {
+std::chrono::duration<double> table_sort_selection_rfctrd(i32 table[]) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -221,7 +221,7 @@ std::chrono::duration<double> table_sort_selection_rfctrd(int32_t table[]) {
 	return diff;
 }
 
-inline void table_sort_slct_rfctrd(int32_t table[], size_t length) {
+inline void table_sort_slct_rfctrd(i32 table[], size_t length) {
 	size_t i, j, min_val_index;
 	for (i = 0; i < (length - 1); ++i) {
 		min_val_index = i;
@@ -234,7 +234,7 @@ inline void table_sort_slct_rfctrd(int32_t table[], size_t length) {
 }
 
 /*** SHELL'S SORT ***/
-std::chrono::duration<double> table_sort_shell_rfctrd(int32_t table[]) {
+std::chrono::duration<double> table_sort_shell_rfctrd(i32 table[]) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -252,9 +252,9 @@ std::chrono::duration<double> table_sort_shell_rfctrd(int32_t table[]) {
 	return diff;
 }
 
-inline void table_sort_shl_rfctrd(int32_t table[], size_t length) {
+inline void table_sort_shl_rfctrd(i32 table[], size_t length) {
 	size_t i, j, step = length / 2;
-	int32_t tmp_val;
+	i32 tmp_val;
 	while (step >= 1) {
 		for (i = step; i < length; i++) {
 			tmp_val = table[i];
@@ -266,7 +266,7 @@ inline void table_sort_shl_rfctrd(int32_t table[], size_t length) {
 	}
 }
 
-std::chrono::duration<double> table_sort_ciura_rfctrd(int32_t table[]) {
+std::chrono::duration<double> table_sort_ciura_rfctrd(i32 table[]) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -285,11 +285,11 @@ std::chrono::duration<double> table_sort_ciura_rfctrd(int32_t table[]) {
 	return diff;
 }
 
-inline void table_sort_cr_rfctrd(int32_t table[], size_t length) {
-	int32_t tmp_val;
+inline void table_sort_cr_rfctrd(i32 table[], size_t length) {
+	i32 tmp_val;
 	size_t i, tmp_idx;
-	uint16_t steps[8] = {701, 301, 132, 57, 23, 10, 4, 1};
-	for (uint16_t step : steps) {
+	u16 steps[8] = {701, 301, 132, 57, 23, 10, 4, 1};
+	for (u16 step : steps) {
 		for (i = step; i < length; i++) {
 			tmp_val = table[i];
 			for (tmp_idx = i; tmp_idx >= step && table[tmp_idx-step] > tmp_val; tmp_idx -= step)
@@ -300,7 +300,7 @@ inline void table_sort_cr_rfctrd(int32_t table[], size_t length) {
 }
 
 /*** LINEAR SEARCH ***/
-std::chrono::duration<double> table_search_linear_rfctrd(int32_t table[], const int32_t searched_number, bool &result) {
+std::chrono::duration<double> table_search_linear_rfctrd(i32 table[], const i32 searched_number, bool &result) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -325,7 +325,7 @@ std::chrono::duration<double> table_search_linear_rfctrd(int32_t table[], const 
 	return diff;
 }
 
-inline bool table_search_lnr_rfctrd(int32_t table[], const size_t length, const int32_t searched_item) {
+inline bool table_search_lnr_rfctrd(i32 table[], const size_t length, const i32 searched_item) {
 	size_t i;
 	for (i = 0; i < length; i++) {
 		if (table[i] == searched_item)
@@ -334,7 +334,7 @@ inline bool table_search_lnr_rfctrd(int32_t table[], const size_t length, const 
 	return false;
 }
 
-std::chrono::duration<double> table_search_guardian_rfctrd(int32_t table[], const int32_t searched_number,
+std::chrono::duration<double> table_search_guardian_rfctrd(i32 table[], const i32 searched_number,
 							   bool &result) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
@@ -361,7 +361,7 @@ std::chrono::duration<double> table_search_guardian_rfctrd(int32_t table[], cons
 	return diff;
 }
 
-inline bool table_search_grd_rfctrd(int32_t table[], const size_t length, const int32_t searched_item) {
+inline bool table_search_grd_rfctrd(i32 table[], const size_t length, const i32 searched_item) {
 	size_t index = 0;
 	*(table+length) = searched_item;  //set guardian
 
@@ -376,7 +376,7 @@ inline bool table_search_grd_rfctrd(int32_t table[], const size_t length, const 
 }
 
 /*** BINARY SEARCH ***/
-std::chrono::duration<double> table_search_binary_rfctrd(int32_t table[], const int32_t searched_number, bool &result) {
+std::chrono::duration<double> table_search_binary_rfctrd(i32 table[], const i32 searched_number, bool &result) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -401,7 +401,7 @@ std::chrono::duration<double> table_search_binary_rfctrd(int32_t table[], const 
 	return diff;
 }
 
-inline bool table_search_bnr_rfctrd(int32_t table[], size_t left, size_t right, const int32_t searched_item) {
+inline bool table_search_bnr_rfctrd(i32 table[], size_t left, size_t right, const i32 searched_item) {
 	if (left > right)
 		return false;
 
@@ -417,10 +417,10 @@ inline bool table_search_bnr_rfctrd(int32_t table[], size_t left, size_t right, 
 }
 
 /*** MAXIMUM/ MINIMUM SEARCH ***/
-std::chrono::duration<double> table_search_extrema_rfctrd(int32_t table[], const int32_t searched_number,
+std::chrono::duration<double> table_search_extrema_rfctrd(i32 table[], const i32 searched_number,
 							  bool &result) {
-	int32_t minimum = INT32_MAX;
-	int32_t maximum = INT32_MIN;
+	i32 minimum = INT32_MAX;
+	i32 maximum = INT32_MIN;
 
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
@@ -450,7 +450,7 @@ std::chrono::duration<double> table_search_extrema_rfctrd(int32_t table[], const
 	return diff;
 }
 
-inline void table_search_ext_rfctrd(int32_t table[], const size_t length, int32_t &minimum, int32_t &maximum) {
+inline void table_search_ext_rfctrd(i32 table[], const size_t length, i32 &minimum, i32 &maximum) {
 	size_t i;
 	for (i = 0; i < length; i++) {
 		if (table[i] > maximum)

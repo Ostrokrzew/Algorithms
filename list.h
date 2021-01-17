@@ -4,7 +4,7 @@
 #include "headers.h"
 
 typedef struct list {
-	uint32_t value;
+	u32 value;
 	struct list *next;
 } list_node;
 
@@ -65,11 +65,11 @@ static inline void remove_all_nodes(list_node_t &first_node) {
 		remove_list_node(first_node, first_node);
 }
 
-static inline void set_first_list_node(list_node_t const &first_node, uint32_t value) {
+static inline void set_first_list_node(list_node_t const &first_node, u32 value) {
 	first_node->value = value;
 }
 
-static inline void set_internal_list_node(list_node_t const &first_node, list_node_t node_to_set, uint32_t value) {
+static inline void set_internal_list_node(list_node_t const &first_node, list_node_t node_to_set, u32 value) {
 	list_node_t current_node = first_node;
 	while (current_node != node_to_set)
 		current_node = current_node->next;
@@ -77,7 +77,7 @@ static inline void set_internal_list_node(list_node_t const &first_node, list_no
 	current_node->value = value;
 }
 
-static inline void set_last_list_node(list_node_t const &first_node, uint32_t value) {
+static inline void set_last_list_node(list_node_t const &first_node, u32 value) {
 	list_node_t current_node = first_node;
 	while (current_node->next != nullptr)
 		current_node = current_node->next;
@@ -85,7 +85,7 @@ static inline void set_last_list_node(list_node_t const &first_node, uint32_t va
 	current_node->value = value;
 }
 
-static inline void set_list_node(list_node_t const &first_node, list_node_t &node_to_set, uint32_t value) {
+static inline void set_list_node(list_node_t const &first_node, list_node_t &node_to_set, u32 value) {
 	if (first_node == node_to_set) {
 		set_first_list_node(first_node, value);
 	} else {
@@ -99,7 +99,7 @@ static inline void set_list_node(list_node_t const &first_node, list_node_t &nod
 typedef struct metalist {
 	list_node_t head;
 	list_node_t tail;
-	uint32_t counter;
+	u32 counter;
 } list_controler;
 
 typedef list_controler *list_controler_t;
@@ -134,7 +134,7 @@ static inline void update_metalist(list_controler_t &list_controler, list_node_t
 	list_controler->tail = current_node;
 }
 
-static uint8_t read_to_list(const char *input_file, list_node_t &first_node) {
+static u8 read_to_list(const char *input_file, list_node_t &first_node) {
 	list_node_t current_node = first_node;
 
 	//open the file with generated data to sort for read
@@ -144,8 +144,8 @@ static uint8_t read_to_list(const char *input_file, list_node_t &first_node) {
 	}
 
 	//read input file to table
-	char *line = (char *)zmalloc(sizeof(char));
-	size_t len = 0;
+	char *line = (char *)zmalloc(12 * sizeof(char));
+	size_t len = 12;
 
 	for (size_t i = 0; i < AMOUNT; i++) {
 		if (getline(&line, &len, input) == -1) {
@@ -166,7 +166,7 @@ static uint8_t read_to_list(const char *input_file, list_node_t &first_node) {
 	return SUCCESS;
 }
 
-static uint8_t list_to_write(const std::string &output_file, list_node_t &first_node, double diff) {
+static u8 list_to_write(const std::string &output_file, list_node_t &first_node, double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
@@ -190,7 +190,7 @@ static uint8_t list_to_write(const std::string &output_file, list_node_t &first_
 	return SUCCESS;
 }
 
-static uint8_t search_result_list_to_write(const std::string &output_file, list_node_t &first_node, double diff) {
+static u8 search_result_list_to_write(const std::string &output_file, list_node_t &first_node, double diff) {
 	//open the output file for write and clear its content
 	std::ofstream output;
 	output.open(output_file, std::ofstream::trunc);
@@ -207,7 +207,7 @@ static uint8_t search_result_list_to_write(const std::string &output_file, list_
 	return SUCCESS;
 }
 
-static inline uint8_t validate_list_order(list_node_t const &first_node) {
+static inline u8 validate_list_order(list_node_t const &first_node) {
 	list_node_t prev_node = first_node, current_node;
 	while (prev_node->next != nullptr) {
 		current_node = prev_node->next;
@@ -221,9 +221,9 @@ static inline uint8_t validate_list_order(list_node_t const &first_node) {
 	return SUCCESS;
 }
 
-static uint8_t execute_sort_algorithm_on_list(const char *input_file, const std::string &output_file,
+static u8 execute_sort_algorithm_on_list(const char *input_file, const std::string &output_file,
 					      std::chrono::duration<double> (*algorithm)(list_node_t&)) {
-	uint8_t result;
+	u8 result;
 	list_node_t list = init_list_node();
 	//open the file with generated data to sort for read
 	result = read_to_list(input_file, list);
@@ -246,11 +246,11 @@ error:
 	return result;
 }
 
-static uint8_t execute_search_algorithm_on_list(const char *input_file, const std::string &output_file,
-						 const int32_t searched_number, std::chrono::duration<double>
-						         (*algorithm)(list_node_t&, const int32_t, bool&)
+static u8 execute_search_algorithm_on_list(const char *input_file, const std::string &output_file,
+						 const i32 searched_number, std::chrono::duration<double>
+						         (*algorithm)(list_node_t&, const i32, bool&)
 ) {
-	uint8_t result;
+	u8 result;
 	list_node_t list = init_list_node();;
 	bool is_found = false;
 	//open the file with generated data to sort for read

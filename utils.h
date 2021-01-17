@@ -8,17 +8,17 @@
 #include <limits.h>
 
 //amount of numbers randomly generated
-#define AMOUNT (262144/4)
+#define AMOUNT (262144/6)
 
 //change numeric types to faster versions
-#define uint8_t uint_fast8_t
-#define uint16_t uint_fast16_t
-#define uint32_t uint_fast32_t
-#define uint64_t uint_fast64_t
-#define int8_t int_fast8_t
-#define int16_t int_fast16_t
-#define int32_t int_fast32_t
-#define int64_t int_fast64_t
+#define u8 uint_fast8_t
+#define u16 uint_fast16_t
+#define u32 uint_fast32_t
+#define u64 uint_fast64_t
+#define i8 int_fast8_t
+#define i16 int_fast16_t
+#define i32 int_fast32_t
+#define i64 int_fast64_t
 
 static void* zmalloc(size_t size) {
 	void *ptr = malloc(size);
