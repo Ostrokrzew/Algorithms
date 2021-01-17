@@ -12,6 +12,7 @@
 #include "filenames_generator.h"
 #include "utils.h"
 #include "list_algorithms.h"
+#include "list_algorithms_refactored.h"
 #include "rng.h"
 #include "tables_utils.h"
 #include "table_algorithms.h"

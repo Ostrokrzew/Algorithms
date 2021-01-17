@@ -3,7 +3,7 @@
 
 #include "headers.h"
 
-uint8_t random_number_generator(const std::string& output_file) {
+static uint8_t random_number_generator(const std::string &output_file) {
 	//seed the generator with current time
 	time_t t = time(nullptr);
 	srand48(t);
@@ -26,7 +26,7 @@ uint8_t random_number_generator(const std::string& output_file) {
 	return SUCCESS;
 }
 
-uint8_t draw_number(const char *input_file, int32_t &number) {
+static uint8_t draw_number(const char *input_file, int32_t &number) {
 	//open the file with generated data to sort for read
 	FILE *input = fopen(input_file, "r");
 	if (!input)

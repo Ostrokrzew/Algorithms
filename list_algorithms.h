@@ -3,43 +3,43 @@
 
 #include "list.h"
 
-std::chrono::duration<double> list_sort_bubble(list_node_t&);
-void list_sort_bbl(list_node);
+std::chrono::duration<double> list_sort_bubble(struct list*&);
+void list_sort_bbl(struct list*&);
 
-std::chrono::duration<double> list_sort_heap(list_node_t&);
-void list_sort_hp(list_node);
-void list_restore(list_node);
+std::chrono::duration<double> list_sort_heap(struct list*&);
+void list_sort_hp(struct list*&);
+void list_restore(struct list*&, int);
 
-std::chrono::duration<double> list_sort_insertion(list_node_t&);
-void list_sort_insrt(list_node, int);
+std::chrono::duration<double> list_sort_insertion(struct list*&);
+void list_sort_insrt(struct list*&);
 
-std::chrono::duration<double> list_sort_merge(list_node_t&);
-void list_sort_mrg(list_node, int, int);
-void list_merge(list_node, int, int, int);
+std::chrono::duration<double> list_sort_merge(struct list*&);
+void list_sort_mrg(struct list*&, int, int);
+void list_merge(struct list*&, int, int, int);
 
-std::chrono::duration<double> list_sort_quick(list_node_t&);
-void list_sort_qck(list_node, int, int);
+std::chrono::duration<double> list_sort_quick(struct list*&);
+void list_sort_qck(struct list*&, int, int);
 
-std::chrono::duration<double> list_sort_selection(list_node_t&);
-void list_sort_slct(list_node, int);
+std::chrono::duration<double> list_sort_selection(struct list*&);
+void list_sort_slct(struct list*&);
 
-std::chrono::duration<double> list_sort_shell(list_node_t&);
-void list_sort_shl(list_node, int);
+std::chrono::duration<double> list_sort_shell(struct list*&);
+void list_sort_shl(struct list*&);
 
-std::chrono::duration<double> list_sort_ciura(list_node_t&);
-void list_sort_cr(list_node, int);
+std::chrono::duration<double> list_sort_ciura(struct list*&);
+void list_sort_cr(struct list*&);
 
-std::chrono::duration<double> list_search_linear(list_node_t&, long, bool&);
-bool list_search_lnr(list_node, int, long);
+std::chrono::duration<double> list_search_linear(struct list*&, long, bool&);
+bool list_search_lnr(struct list*&, long);
 
-std::chrono::duration<double> list_search_guardian(list_node_t&, long, bool&);
-bool list_search_grd(list_node, int, long);
+std::chrono::duration<double> list_search_guardian(struct list*&, long, bool&);
+bool list_search_grd(struct list*&, long);
 
-std::chrono::duration<double> list_search_binary(list_node_t&, long, bool&);
-bool list_search_bnr(list_node, int, int, long);
+std::chrono::duration<double> list_search_binary(struct list*&, long, bool&);
+bool list_search_bnr(struct list*&, int, int, long);
 
-std::chrono::duration<double> list_search_extrema(list_node_t&, long, bool&);
-long list_search_max(list_node, int);
-long list_search_min(list_node, int);
+std::chrono::duration<double> list_search_extrema(struct list*&, long, bool&);
+long list_search_max(struct list*&);
+long list_search_min(struct list*&);
 
 #endif //ENGINEERPROJECT_LIST_ALGORITHMS_H

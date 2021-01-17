@@ -222,7 +222,7 @@ static inline uint8_t validate_list_order(list_node_t const &first_node) {
 }
 
 static uint8_t execute_sort_algorithm_on_list(const char *input_file, const std::string &output_file,
-					      std::chrono::duration<double> (*algorithm)(&list_node_t)) {
+					      std::chrono::duration<double> (*algorithm)(list_node_t&)) {
 	uint8_t result;
 	list_node_t list = init_list_node();
 	//open the file with generated data to sort for read
@@ -248,7 +248,7 @@ error:
 
 static uint8_t execute_search_algorithm_on_list(const char *input_file, const std::string &output_file,
 						 const int32_t searched_number, std::chrono::duration<double>
-						         (*algorithm)(list_node_t, const int32_t, bool&)
+						         (*algorithm)(list_node_t&, const int32_t, bool&)
 ) {
 	uint8_t result;
 	list_node_t list = init_list_node();;
@@ -280,18 +280,18 @@ static inline void swap_xor_list(list_node_t &a, list_node_t &b) {
 	a->value ^= b->value;
 }
 
-static void swap_tmp_list(list_node first_node, list_node &a, list_node &b) {
-	long tmp = a.value;
-	set_list_node(&first_node, &a, b.value);
-	set_list_node(&first_node, &b, tmp);
+static void swap_tmp_list(list_node_t &a, list_node_t &b) {
+	long tmp = a->value;
+	a->value = b->value;
+	b->value = tmp;
 }
 
-static int get_list_lenght(list_node first_node) {
-	list_node current_node = first_node;
+static int get_list_lenght(list_node_t first_node) {
+	list_node_t current_node = first_node;
 	int counter = 1;
-	while (current_node.next != nullptr) {
+	while (current_node->next != nullptr) {
 		counter += 1;
-		current_node = *current_node.next;
+		current_node = current_node->next;
 	}
 	return counter;
 }

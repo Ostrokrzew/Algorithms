@@ -87,7 +87,7 @@ static inline uint8_t validate_order(const int32_t table[]) {
 }
 
 static uint8_t execute_sort_algorithm_on_table(const char *input_file, const std::string &output_file,
-						   std::chrono::duration<double> (*algorithm)(int32_t[])) {
+					       std::chrono::duration<double> (*algorithm)(int32_t[])) {
 	uint8_t result;
 	//open the file with generated data to sort for read
 	int32_t *table = read_to_table(input_file);
