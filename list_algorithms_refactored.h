@@ -1,11 +1,11 @@
-//#ifndef ENGINEERPROJECT_LIST_ALGORITHMS_REFACTORED_H
-//#define ENGINEERPROJECT_LIST_ALGORITHMS_REFACTORED_H
-//
-//#include "list.h"
-//
-//std::chrono::duration<double> list_sort_bubble_rfctrd(struct list*&);
-//inline void list_sort_bbl_rfctrd(struct list*&, size_t);
-//
+#ifndef ENGINEERPROJECT_LIST_ALGORITHMS_REFACTORED_H
+#define ENGINEERPROJECT_LIST_ALGORITHMS_REFACTORED_H
+
+#include "list.h"
+
+std::chrono::duration<double> list_sort_bubble_rfctrd(struct list*&);
+inline void list_sort_bbl_rfctrd(struct list* const&, const size_t);
+
 //std::chrono::duration<double> list_sort_heap_rfctrd(struct list*&);
 //inline void list_sort_hp_rfctrd(struct list*&, size_t);
 //inline void list_restore_rfctrd(struct list*&, size_t, size_t);
@@ -41,4 +41,4 @@
 //std::chrono::duration<double> list_search_extrema_rfctrd(struct list*&, const i32, bool&);
 //inline void list_search_ext_rfctrd(struct list*&, const size_t, i32&, i32&);
 //
-//#endif //ENGINEERPROJECT_LIST_ALGORITHMS_REFACTORED_H
+#endif //ENGINEERPROJECT_LIST_ALGORITHMS_REFACTORED_H

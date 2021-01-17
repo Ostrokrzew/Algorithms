@@ -246,19 +246,19 @@ u8 run_normal_list_algorithms(const i32 &number) {
 	return SUCCESS;
 }
 
-//u8 run_refactored_list_algorithms(const i32 &number) {
-//	u8 result;
-//
-//	result = run_refactored_list_sort_algorithms();
-//	if (result)
-//		return result;
-//
+u8 run_refactored_list_algorithms(const i32 &number) {
+	u8 result;
+
+	result = run_refactored_list_sort_algorithms();
+	if (result)
+		return result;
+
 //	result = run_refactored_list_search_algorithms(number);
 //	if (result)
 //		return result;
 //
-//	return SUCCESS;
-//}
+	return SUCCESS;
+}
 
 u8 run_normal_list_sort_algorithms() {
 	u8 result;
@@ -330,16 +330,16 @@ u8 run_normal_list_sort_algorithms() {
 	return SUCCESS;
 }
 
-//u8 run_refactored_list_sort_algorithms() {
-//	u8 result;
-//
-//	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_BUBBLE_REF,
-//						 list_sort_bubble_rfctrd);
-//	if(result) {
-//		fprintf(stderr, "Refactored list bubble sort failed with code %u.", result);
-//		return BBL_SORT_FAIL;
-//	}
-//
+u8 run_refactored_list_sort_algorithms() {
+	u8 result;
+
+	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_BUBBLE_REF,
+						 list_sort_bubble_rfctrd);
+	if(result) {
+		fprintf(stderr, "Refactored list bubble sort failed with code %u.", result);
+		return BBL_SORT_FAIL;
+	}
+
 //	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_QUICK_REF,
 //						 list_sort_quick_rfctrd);
 //	if(result) {
@@ -388,9 +388,9 @@ u8 run_normal_list_sort_algorithms() {
 //		fprintf(stderr, "Refactored list Ciura's sort failed with code %u.", result);
 //		return CRA_SORT_FAIL;
 //	}
-//
-//	return SUCCESS;
-//}
+
+	return SUCCESS;
+}
 //
 //u8 run_normal_list_search_algorithms(const i32 &number) {
 //	u8 result;

@@ -25,7 +25,7 @@ void list_sort_bbl(list_node_t &first_node) {
 		list_node_t left_node = first_node;
 		list_node_t right_node = left_node->next;
 
-		for (int j = 0; j <= list_len-2; j++) {
+		for (int j = 0; j < list_len-1; j++) {
 			if (left_node->value > right_node->value)
 				swap_tmp_list(left_node, right_node);
 			left_node = left_node->next;

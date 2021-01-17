@@ -38,6 +38,10 @@ int main() {
 	if (result)
 		return result;
 
+	result = run_refactored_list_algorithms(number);
+	if (result)
+		return result;
+
 	//finish program
 	fprintf(stdout, "Every algorithm done its work. It's time to say goodbye.\n"
 		"Sławomir Jankowski 2020/21");
