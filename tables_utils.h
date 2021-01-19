@@ -112,8 +112,7 @@ error:
 
 static u8 execute_search_algorithm_on_table(const char *input_file, const std::string &output_file,
 						 const i32 searched_number, std::chrono::duration<double>
-						         (*algorithm)(i32[], const i32, bool&)
-) {
+						         (*algorithm)(i32[], const i32, bool&)) {
 	u8 result;
 	bool is_found = false;
 	//open the file with generated data to sort for read

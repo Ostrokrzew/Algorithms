@@ -123,6 +123,18 @@ static inline void remove_tail(list_controler_t &list_controler) {
 	--list_controler->counter;
 }
 
+static inline void add_head(list_controler_t &list_controler, list_node_t &new_head) {
+	new_head->next = list_controler->head;
+	++list_controler->counter;
+	list_controler->head = new_head;
+}
+
+static inline void add_tail(list_controler_t &list_controler, list_node_t &new_tail) {
+	list_controler->tail->next = new_tail;
+	++list_controler->counter;
+	list_controler->tail = new_tail;
+}
+
 static inline void update_metalist(list_controler_t &list_controler, list_node_t const &first_node) {
 	list_controler->head = first_node;
 	list_controler->counter = 1;
@@ -248,8 +260,7 @@ error:
 
 static u8 execute_search_algorithm_on_list(const char *input_file, const std::string &output_file,
 						 const i32 searched_number, std::chrono::duration<double>
-						         (*algorithm)(list_node_t&, const i32, bool&)
-) {
+						         (*algorithm)(list_node_t&, const i32, bool&)) {
 	u8 result;
 	list_node_t list = init_list_node();;
 	bool is_found = false;

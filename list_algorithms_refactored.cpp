@@ -1,5 +1,6 @@
 #include "list_algorithms_refactored.h"
 
+/*** BUBBLE SORT ***/
 std::chrono::duration<double> list_sort_bubble_rfctrd(list_node_t &first_node) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
@@ -12,7 +13,7 @@ std::chrono::duration<double> list_sort_bubble_rfctrd(list_node_t &first_node) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort list with refactored heap sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort list with refactored bubble sort algorithm: %f s\n", diff.count());
 
 	//return duration time
 	return diff;
@@ -41,86 +42,49 @@ inline void list_sort_bbl_rfctrd(list_node_t const &first_node, const size_t len
 	}
 }
 
-///*** HEAP SORT ***/
-//std::chrono::duration<double> list_sort_heap_rfctrd(list_node_t first_node) {
-//	//start counting time
-//	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-//
-//	//start sorting
-//	list_sort_hp_rfctrd(first_node, AMOUNT);
-//
-//	//stop counting time
-//	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-//
-//	//print sorting duration time
-//	std::chrono::duration<double> diff = end-start;
-//	fprintf(stdout, "Time to sort list with refactored heap sort algorithm: %f s\n", diff.count());
-//
-//	//return duration time
-//	return diff;
-//}
-//
-//inline void list_sort_hp_rfctrd(list_node_t first_node, size_t length) {
-//	size_t j;
-//	for (j = (length >> 1); j > 0; --j) {
-//		list_restore_rfctrd(first_node, j, length);
-//	}
-//	do {
-//		swap_xor_list(first_node[length - 1], first_node[0]);
-//		--length;
-//		list_restore_rfctrd(first_node, 1, length);
-//	} while (length > 1);
-//}
-//
-//inline void list_restore_rfctrd(list_node_t first_node, size_t j, size_t length) {
-//	i32 tmp = first_node[j-1];
-//	size_t k;
-//
-//	while (j <= (length >> 1)) {
-//		k = j << 1;
-//		if ((k < length) && (first_node[k-1] < first_node[k]))
-//			++k;
-//		if (tmp >= first_node[k-1])
-//			break;
-//		first_node[j-1] = first_node[k-1];
-//		j = k;
-//	}
-//	first_node[j-1] = tmp;
-//}
-//
-///*** INSERTION SORT ***/
-//std::chrono::duration<double> list_sort_insertion_rfctrd(list_node_t first_node) {
-//	//start counting time
-//	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-//
-//	//start sorting
-//	list_sort_insrt_rfctrd(first_node, AMOUNT);
-//
-//	//stop counting time
-//	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-//
-//	//print sorting duration time
-//	std::chrono::duration<double> diff = end-start;
-//	fprintf(stdout, "Time to sort list with refactored insertion sort algorithm: %f s\n", diff.count());
-//
-//	//return duration time
-//	return diff;
-//}
-//
-//inline void list_sort_insrt_rfctrd(list_node_t first_node, size_t length) {
-//	i32 tmp;
-//	size_t i, j;
-//	for (i = 1; i < length; ++i) {
-//		tmp = first_node[i];
-//		j = i - 1;
-//		while(j < length && tmp < first_node[j]) {
-//			first_node[j+1] = first_node[j];
-//			--j;
-//		}
-//		first_node[j+1] = tmp;
-//	}
-//}
-//
+/*** INSERTION SORT ***/
+std::chrono::duration<double> list_sort_insertion_rfctrd(list_node_t &first_node) {
+	//start counting time
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+
+	//start sorting
+	list_sort_insrt_rfctrd(first_node);
+
+	//stop counting time
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+
+	//print sorting duration time
+	std::chrono::duration<double> diff = end-start;
+	fprintf(stdout, "Time to sort list with refactored insertion sort algorithm: %f s\n", diff.count());
+
+	//return duration time
+	return diff;
+}
+
+inline void list_sort_insrt_rfctrd(list_node_t &first_node) {
+	list_controler_t sorted_list = init_metalist();
+	list_node_t current_node = first_node, next_node;
+	while (current_node != nullptr) {
+		next_node = current_node->next;
+		list_sort_insert_rfctrd(sorted_list, current_node);
+		current_node = next_node;
+	}
+	first_node = sorted_list->head;
+}
+
+inline void list_sort_insert_rfctrd(list_controler_t &sorted_list, list_node_t &new_node) {
+	list_node_t current;
+	if (sorted_list->head == nullptr || sorted_list->head->value >= new_node->value)
+		add_head(sorted_list, new_node);
+	else {
+		current = sorted_list->head;
+		while (current->next != nullptr && current->next->value < new_node->value)
+			current = current->next;
+		new_node->next = current->next;
+		current->next = new_node;
+	}
+}
+
 ///*** MERGE SORT ***/
 //std::chrono::duration<double> list_sort_merge_rfctrd(list_node_t first_node) {
 //	//start counting time
