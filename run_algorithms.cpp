@@ -271,6 +271,14 @@ u8 run_normal_list_sort_algorithms() {
 		return BBL_SORT_FAIL;
 	}
 
+//	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_MERGE,
+//						 reinterpret_cast<std::chrono::duration<double> (*)(
+//							 list_node_t&)>(list_sort_heap));
+//	if(result) {
+//		fprintf(stderr, "List heap sort failed with code %u.", result);
+//		return HP_SORT_FAIL;
+//	}
+//
 //	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_QUICK,
 //						 reinterpret_cast<std::chrono::duration<double> (*)(
 //							 list_node_t&)>(list_sort_quick));
@@ -286,15 +294,15 @@ u8 run_normal_list_sort_algorithms() {
 //		fprintf(stderr, "List merge sort failed with code %u.", result);
 //		return MRG_SORT_FAIL;
 //	}
-//
-//	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_INSERTION,
-//						 reinterpret_cast<std::chrono::duration<double> (*)(
-//							 list_node_t&)>(list_sort_insertion));
-//	if(result) {
-//		fprintf(stderr, "List insertion sort failed with code %u.", result);
-//		return INS_SORT_FAIL;
-//	}
-//
+
+	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_INSERTION,
+						 reinterpret_cast<std::chrono::duration<double> (*)(
+							 list_node_t&)>(list_sort_insertion));
+	if(result) {
+		fprintf(stderr, "List insertion sort failed with code %u.", result);
+		return INS_SORT_FAIL;
+	}
+
 //	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_SELECTION,
 //						 reinterpret_cast<std::chrono::duration<double> (*)(
 //							 list_node_t&)>(list_sort_selection));
@@ -332,6 +340,13 @@ u8 run_refactored_list_sort_algorithms() {
 		return BBL_SORT_FAIL;
 	}
 
+//	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_QUICK_REF,
+//						 list_sort_heap_rfctrd);
+//	if(result) {
+//		fprintf(stderr, "Refactored list heap sort failed with code %u.", result);
+//		return HP_SORT_FAIL;
+//	}
+//
 //	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_QUICK_REF,
 //						 list_sort_quick_rfctrd);
 //	if(result) {

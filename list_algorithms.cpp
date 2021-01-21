@@ -80,39 +80,53 @@ void list_sort_bbl(list_node_t &first_node) {
 //	first_node[j-1] = tmp;
 //}
 //
-///*** INSERTION SORT ***/
-//std::chrono::duration<double> list_sort_insertion(list_node_t &first_node) {
-//	//start counting time
-//	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-//
-//	//start sorting
-//	list_sort_insrt(first_node);
-//
-//	//stop counting time
-//	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-//
-//	//print sorting duration time
-//	std::chrono::duration<double> diff = end-start;
-//	fprintf(stdout, "Time to sort list with insertion sort algorithm: %f s\n", diff.count());
-//
-//	//return duration time
-//	return diff;
-//}
-//
-//void list_sort_insrt(list_node_t &first_node) {
-//	for (int i = 1; i < length; i++) {
-//		long tmp_i = first_node[i];
-//		int j;
-//		for (j = (i - 1); j >= 0; j--) {
-//			long tmp_j = first_node[j];
-//			if (tmp_j <= tmp_i)
-//				break;
-//			first_node[j+1] = tmp_j;
-//		}
-//		first_node[j+1] = tmp_i;
-//	}
-//}
-//
+/*** INSERTION SORT ***/
+std::chrono::duration<double> list_sort_insertion(list_node_t &first_node) {
+	//start counting time
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+
+	//start sorting
+	list_sort_insrt(first_node);
+
+	//stop counting time
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+
+	//print sorting duration time
+	std::chrono::duration<double> diff = end-start;
+	fprintf(stdout, "Time to sort list with insertion sort algorithm: %f s\n", diff.count());
+
+	//return duration time
+	return diff;
+}
+
+void list_sort_insrt(list_node_t &first_node) {
+	list_node_t sorted_list = init_list_node();
+	list_node_t current_node = first_node, next_node;
+	while (current_node != nullptr) {
+		next_node = current_node->next;
+		list_sort_insert(sorted_list, current_node);
+		current_node = next_node;
+	}
+	list_node_t new_first_node = sorted_list;
+	while (sorted_list->value != 0)
+		sorted_list = sorted_list->next;
+	remove_list_node(new_first_node, sorted_list);
+	first_node = new_first_node;
+}
+
+void list_sort_insert(list_node_t &sorted_list, list_node_t &new_node) {
+	if (sorted_list == nullptr || sorted_list->value >= new_node->value) {
+		new_node->next = sorted_list;
+		sorted_list = new_node;
+	} else {
+		list_node_t current = sorted_list;
+		while (current->next != nullptr && current->next->value < new_node->value)
+			current = current->next;
+		new_node->next = current->next;
+		current->next = new_node;
+	}
+}
+
 ///*** MERGE SORT ***/
 //std::chrono::duration<double> list_sort_merge(list_node_t &first_node) {
 //	//start counting time

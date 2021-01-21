@@ -6,9 +6,13 @@
 std::chrono::duration<double> list_sort_bubble_rfctrd(struct list*&);
 inline void list_sort_bbl_rfctrd(struct list* const&, const size_t);
 
+//std::chrono::duration<double> list_sort_heap_rfctrd(struct list*&);
+//void list_sort_hp_rfctrd(struct list*&);
+//void list_restore_rfctrd(struct list*&, int32_t);
+//
 std::chrono::duration<double> list_sort_insertion_rfctrd(struct list*&);
 inline void list_sort_insrt_rfctrd(struct list*&);
-inline void list_sort_insert_rfctrd(struct metalist*&, list*&);
+inline void list_sort_insert_rfctrd(struct metalist*&, struct list*&);
 
 //std::chrono::duration<double> list_sort_merge_rfctrd(struct list*&);
 //inline void list_sort_mrg_rfctrd(struct list*&, size_t, size_t);
