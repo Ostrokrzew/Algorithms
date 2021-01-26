@@ -85,60 +85,64 @@ inline void list_sort_insert_rfctrd(list_controler_t &sorted_list, list_node_t &
 	}
 }
 
-///*** MERGE SORT ***/
-//std::chrono::duration<double> list_sort_merge_rfctrd(list_node_t first_node) {
-//	//start counting time
-//	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-//
-//	//start sorting
-//	list_sort_mrg_rfctrd(first_node, 0, AMOUNT - 1);
-//
-//	//stop counting time
-//	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-//
-//	//print sorting duration time
-//	std::chrono::duration<double> diff = end-start;
-//	fprintf(stdout, "Time to sort list with refactored merge sort algorithm: %f s\n", diff.count());
-//
-//	//return duration time
-//	return diff;
-//}
-//
-//inline void list_sort_mrg_rfctrd(list_node_t first_node, size_t left, size_t right) {
-//	if (left < right) {
-//		size_t middle = (left + right) >> 1;
-//		list_sort_mrg_rfctrd(first_node, left, middle);
-//		list_sort_mrg_rfctrd(first_node, middle + 1, right);
-//		list_merge_rfctrd(first_node, left, middle, right);
-//	}
-//}
-//
-//inline void list_merge_rfctrd(list_node_t first_node, size_t left, size_t middle, size_t right) {
-//	size_t i, j;
-//	//copy list content to temporary first_node
-//	auto *tmp_list = (i32*)zmalloc(sizeof(i32) * AMOUNT);
-//	for (i = 0; i < AMOUNT; i++)
-//		tmp_list[i] = first_node[i];
-//
-//	//create auxiliary variables
-//	size_t left1 = left, left2 = middle + 1;
-//	i = left;
-//	while (left1 <= middle && left2 <= right) {
-//		if (first_node[left1] < first_node[left2])
-//			tmp_list[i++] = first_node[left1++];
-//		else
-//			tmp_list[i++] = first_node[left2++];
-//	}
-//
-//	while (left1 <= middle)
-//		tmp_list[i++] = first_node[left1++];
-//
-//	//copy sorted temporary list content to first_node
-//	for (j = 0; j < AMOUNT; j++)
-//		first_node[j] = tmp_list[j];
-//	free(tmp_list);
-//}
-//
+/*** MERGE SORT ***/
+std::chrono::duration<double> list_sort_merge_rfctrd(list_node_t &first_node) {
+	//start counting time
+	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+
+	//start sorting
+	list_sort_mrg_rfctrd(first_node);
+
+	//stop counting time
+	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+
+	//print sorting duration time
+	std::chrono::duration<double> diff = end-start;
+	fprintf(stdout, "Time to sort list with refactored merge sort algorithm: %f s\n", diff.count());
+
+	//return duration time
+	return diff;
+}
+
+inline void list_sort_mrg_rfctrd(list_node_t &first_node) {
+	if (first_node == nullptr || first_node->next == nullptr)
+		return;
+	list_node_t left_head, right_head;
+	list_node_t left_tail = first_node, right_tail = first_node->next;
+
+	while (right_tail != nullptr) {
+		right_tail = right_tail->next;
+		if (right_tail != nullptr) {
+			left_tail = left_tail->next;
+			right_tail = right_tail->next;
+		}
+	}
+	left_head = first_node;
+	right_head = left_tail->next;
+	left_tail->next = nullptr;
+
+	list_sort_mrg_rfctrd(left_head);
+	list_sort_mrg_rfctrd(right_head);
+	first_node = list_merge_rfctrd(left_head, right_head);
+}
+
+inline list_node_t list_merge_rfctrd(list_node_t &left_node, list_node_t &right_node) {
+	list_node_t temp_node;
+	if (left_node == nullptr)
+		return right_node;
+	else if (right_node == nullptr)
+		return left_node;
+
+	if (left_node->value <= right_node->value) {
+		temp_node = left_node;
+		temp_node->next = list_merge_rfctrd(left_node->next, right_node);
+	} else {
+		temp_node = right_node;
+		temp_node->next = list_merge_rfctrd(left_node, right_node->next);
+	}
+	return temp_node;
+}
+
 ///*** QUICK SORT ***/
 //std::chrono::duration<double> list_sort_quick_rfctrd(list_node_t first_node) {
 //	//start counting time

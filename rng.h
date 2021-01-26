@@ -33,7 +33,7 @@ static u8 draw_number(const char *input_file, i32 &number) {
 		return ERR_OPEN_FILE;
 	char *line = nullptr;
 	size_t len = 0;
-	for (size_t i = 0; i < (lrand48() % AMOUNT); ++i) {
+	for (size_t i = 0; i <= (lrand48() % AMOUNT); ++i) {
 		if (getline(&line, &len, input) == -1) {
 			free(line);
 			return ERR_READ_DATA;

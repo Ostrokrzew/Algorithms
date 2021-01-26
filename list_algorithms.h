@@ -6,18 +6,14 @@
 std::chrono::duration<double> list_sort_bubble(struct list*&);
 void list_sort_bbl(struct list*&);
 
-//std::chrono::duration<double> list_sort_heap(struct list*&);
-//void list_sort_hp(struct list*&);
-//void list_restore(struct list*&, int);
-//
 std::chrono::duration<double> list_sort_insertion(struct list*&);
 void list_sort_insrt(struct list*&);
 void list_sort_insert(struct list*&, struct list*&);
 
-//std::chrono::duration<double> list_sort_merge(struct list*&);
-//void list_sort_mrg(struct list*&, int, int);
-//void list_merge(struct list*&, int, int, int);
-//
+std::chrono::duration<double> list_sort_merge(struct list*&);
+void list_sort_mrg(struct list*&, int, int);
+void list_merge(struct list*&, int, int, int);
+
 //std::chrono::duration<double> list_sort_quick(struct list*&);
 //void list_sort_qck(struct list*&, int, int);
 //
