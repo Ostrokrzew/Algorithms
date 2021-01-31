@@ -1,7 +1,7 @@
 #include "table_algorithms_refactored.h"
 
 /*** BUBBLE SORT ***/
-std::chrono::duration<double> table_sort_bubble_rfctrd(i32 table[]) {
+std::chrono::duration<double> table_sort_bubble_rfctrd(i32* table) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -13,21 +13,22 @@ std::chrono::duration<double> table_sort_bubble_rfctrd(i32 table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with refactored bubble sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with refactored bubble sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
 }
 
-inline void table_sort_bbl_rfctrd(i32 table[], size_t length) {
+inline void table_sort_bbl_rfctrd(i32* &table, size_t length) {
 	bool change;
 	size_t i, j;
 	for (i = 0; i < length; i++) {
 		change = false;
-		for (j = 1; j <= length-i; j++) {
+		for (j = 1; j < length-i; j++) {
 			if (table[j] < table[j-1]) {
 				swap_xor_table(table[j - 1], table[j]);
 				change = true;
+				j = j-1;
 			}
 		}
 		if (!change)
@@ -36,7 +37,7 @@ inline void table_sort_bbl_rfctrd(i32 table[], size_t length) {
 }
 
 /*** HEAP SORT ***/
-std::chrono::duration<double> table_sort_heap_rfctrd(i32 table[]) {
+std::chrono::duration<double> table_sort_heap_rfctrd(i32* table) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -48,13 +49,13 @@ std::chrono::duration<double> table_sort_heap_rfctrd(i32 table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with refactored heap sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with refactored heap sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
 }
 
-inline void table_sort_hp_rfctrd(i32 table[], size_t length) {
+inline void table_sort_hp_rfctrd(i32* &table, size_t length) {
 	size_t j;
 	for (j = (length >> 1); j > 0; --j) {
 		table_restore_rfctrd(table, j, length);
@@ -66,7 +67,7 @@ inline void table_sort_hp_rfctrd(i32 table[], size_t length) {
 	} while (length > 1);
 }
 
-inline void table_restore_rfctrd(i32 table[], size_t j, size_t length) {
+inline void table_restore_rfctrd(i32* &table, size_t j, size_t length) {
 	i32 tmp = table[j-1];
 	size_t k;
 
@@ -83,7 +84,7 @@ inline void table_restore_rfctrd(i32 table[], size_t j, size_t length) {
 }
 
 /*** INSERTION SORT ***/
-std::chrono::duration<double> table_sort_insertion_rfctrd(i32 table[]) {
+std::chrono::duration<double> table_sort_insertion_rfctrd(i32* table) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -95,13 +96,13 @@ std::chrono::duration<double> table_sort_insertion_rfctrd(i32 table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with refactored insertion sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with refactored insertion sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
 }
 
-inline void table_sort_insrt_rfctrd(i32 table[], size_t length) {
+inline void table_sort_insrt_rfctrd(i32* &table, size_t length) {
 	i32 tmp;
 	size_t i, j;
 	for (i = 1; i < length; ++i) {
@@ -116,7 +117,7 @@ inline void table_sort_insrt_rfctrd(i32 table[], size_t length) {
 }
 
 /*** MERGE SORT ***/
-std::chrono::duration<double> table_sort_merge_rfctrd(i32 table[]) {
+std::chrono::duration<double> table_sort_merge_rfctrd(i32* table) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -128,13 +129,13 @@ std::chrono::duration<double> table_sort_merge_rfctrd(i32 table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with refactored merge sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with refactored merge sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
 }
 
-inline void table_sort_mrg_rfctrd(i32 table[], size_t left, size_t right) {
+inline void table_sort_mrg_rfctrd(i32* &table, size_t left, size_t right) {
 	if (left < right) {
 		size_t middle = (left + right) >> 1;
 		table_sort_mrg_rfctrd(table, left, middle);
@@ -143,7 +144,7 @@ inline void table_sort_mrg_rfctrd(i32 table[], size_t left, size_t right) {
 	}
 }
 
-inline void table_merge_rfctrd(i32 table[], size_t left, size_t middle, size_t right) {
+inline void table_merge_rfctrd(i32* &table, size_t left, size_t middle, size_t right) {
 	size_t i, j;
 	//copy table content to temporary table
 	auto *tmp_table = (i32*)zmalloc(sizeof(i32) * AMOUNT);
@@ -170,7 +171,7 @@ inline void table_merge_rfctrd(i32 table[], size_t left, size_t middle, size_t r
 }
 
 /*** QUICK SORT ***/
-std::chrono::duration<double> table_sort_quick_rfctrd(i32 table[]) {
+std::chrono::duration<double> table_sort_quick_rfctrd(i32* table) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -182,15 +183,15 @@ std::chrono::duration<double> table_sort_quick_rfctrd(i32 table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with refactored quick sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with refactored quick sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
 }
 
-inline void table_sort_qck_rfctrd(i32 table[], size_t left, size_t right) {
-	size_t i;
+inline void table_sort_qck_rfctrd(i32* &table, size_t left, size_t right) {
 	if (left < right) {
+		size_t i;
 		size_t splitter = left;
 		for (i = left + 1; i <= right; i++) {
 			if (table[i] < table[left])
@@ -203,7 +204,7 @@ inline void table_sort_qck_rfctrd(i32 table[], size_t left, size_t right) {
 }
 
 /*** SELECTION SORT ***/
-std::chrono::duration<double> table_sort_selection_rfctrd(i32 table[]) {
+std::chrono::duration<double> table_sort_selection_rfctrd(i32* table) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -215,13 +216,13 @@ std::chrono::duration<double> table_sort_selection_rfctrd(i32 table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with refactored selection sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with refactored selection sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
 }
 
-inline void table_sort_slct_rfctrd(i32 table[], size_t length) {
+inline void table_sort_slct_rfctrd(i32* &table, size_t length) {
 	size_t i, j, min_val_index;
 	for (i = 0; i < (length - 1); ++i) {
 		min_val_index = i;
@@ -234,7 +235,7 @@ inline void table_sort_slct_rfctrd(i32 table[], size_t length) {
 }
 
 /*** SHELL'S SORT ***/
-std::chrono::duration<double> table_sort_shell_rfctrd(i32 table[]) {
+std::chrono::duration<double> table_sort_shell_rfctrd(i32* table) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -246,13 +247,13 @@ std::chrono::duration<double> table_sort_shell_rfctrd(i32 table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with refactored original Shell's algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with refactored original Shell's algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
 }
 
-inline void table_sort_shl_rfctrd(i32 table[], size_t length) {
+inline void table_sort_shl_rfctrd(i32* &table, size_t length) {
 	size_t i, j, step = length / 2;
 	i32 tmp_val;
 	while (step >= 1) {
@@ -266,7 +267,7 @@ inline void table_sort_shl_rfctrd(i32 table[], size_t length) {
 	}
 }
 
-std::chrono::duration<double> table_sort_ciura_rfctrd(i32 table[]) {
+std::chrono::duration<double> table_sort_ciura_rfctrd(i32* table) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -278,14 +279,14 @@ std::chrono::duration<double> table_sort_ciura_rfctrd(i32 table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with refactored Ciura's version of Shell's algorithm: %f s\n",
+	fprintf(stdout, "Time to sort table with refactored Ciura's version of Shell's algorithm: %.7f s\n",
 	 	diff.count());
 
 	//return duration time
 	return diff;
 }
 
-inline void table_sort_cr_rfctrd(i32 table[], size_t length) {
+inline void table_sort_cr_rfctrd(i32* &table, size_t length) {
 	i32 tmp_val;
 	size_t i, tmp_idx;
 	u16 steps[8] = {701, 301, 132, 57, 23, 10, 4, 1};
@@ -300,7 +301,7 @@ inline void table_sort_cr_rfctrd(i32 table[], size_t length) {
 }
 
 /*** LINEAR SEARCH ***/
-std::chrono::duration<double> table_search_linear_rfctrd(i32 table[], const i32 searched_number, bool &result) {
+std::chrono::duration<double> table_search_linear_rfctrd(i32* table, const i32 searched_number, bool &result) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -316,7 +317,7 @@ std::chrono::duration<double> table_search_linear_rfctrd(i32 table[], const i32 
 	// check if number is found
 	if (result) {
 		fprintf(stdout, "Time to find %ld in table with refactored linear search algorithm: "
-		  	"%f s\n", searched_number, diff.count());
+		  	"%.7f s\n", searched_number, diff.count());
 	} else {
 		fprintf(stderr, "Refactored linear search didn't found %ld in table.\n", searched_number);
 	}
@@ -325,43 +326,7 @@ std::chrono::duration<double> table_search_linear_rfctrd(i32 table[], const i32 
 	return diff;
 }
 
-inline bool table_search_lnr_rfctrd(i32 table[], const size_t length, const i32 searched_item) {
-	size_t i;
-	for (i = 0; i < length; i++) {
-		if (table[i] == searched_item)
-			return true;
-	}
-	return false;
-}
-
-std::chrono::duration<double> table_search_guardian_rfctrd(i32 table[], const i32 searched_number,
-							   bool &result) {
-	//start counting time
-	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-
-	//start searching
-	result = table_search_grd_rfctrd(table, AMOUNT, searched_number);
-
-	//stop counting time
-	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-
-	//print searching duration time
-	std::chrono::duration<double> diff = end-start;
-
-	// check if number is found
-	if (result) {
-		fprintf(stdout, "Time to find %ld in table with refactored linear search with guardian algorithm: "
-		  	"%f s\n", searched_number, diff.count());
-	} else {
-		fprintf(stderr, "Refactored linear search with guardian didn't found %ld in table.\n",
-	  		searched_number);
-	}
-
-	//return duration time
-	return diff;
-}
-
-inline bool table_search_grd_rfctrd(i32 table[], const size_t length, const i32 searched_item) {
+inline bool table_search_lnr_rfctrd(i32* &table, const size_t length, const i32 searched_item) {
 	size_t index = 0;
 	*(table+length) = searched_item;  //set guardian
 
@@ -376,7 +341,7 @@ inline bool table_search_grd_rfctrd(i32 table[], const size_t length, const i32 
 }
 
 /*** BINARY SEARCH ***/
-std::chrono::duration<double> table_search_binary_rfctrd(i32 table[], const i32 searched_number, bool &result) {
+std::chrono::duration<double> table_search_binary_rfctrd(i32* table, const i32 searched_number, bool &result) {
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 
@@ -392,7 +357,7 @@ std::chrono::duration<double> table_search_binary_rfctrd(i32 table[], const i32 
 	// check if number is found
 	if (result) {
 		fprintf(stdout, "Time to find %ld in table with refactored binary search algorithm: "
-		  	"%f s\n", searched_number, diff.count());
+		  	"%.7f s\n", searched_number, diff.count());
 	} else {
 		fprintf(stderr, "Refactored binary search didn't found %ld in table.\n", searched_number);
 	}
@@ -401,7 +366,7 @@ std::chrono::duration<double> table_search_binary_rfctrd(i32 table[], const i32 
 	return diff;
 }
 
-inline bool table_search_bnr_rfctrd(i32 table[], size_t left, size_t right, const i32 searched_item) {
+inline bool table_search_bnr_rfctrd(i32* &table, size_t left, size_t right, const i32 searched_item) {
 	if (left > right)
 		return false;
 
@@ -417,10 +382,10 @@ inline bool table_search_bnr_rfctrd(i32 table[], size_t left, size_t right, cons
 }
 
 /*** MAXIMUM/ MINIMUM SEARCH ***/
-std::chrono::duration<double> table_search_extrema_rfctrd(i32 table[], const i32 searched_number,
+std::chrono::duration<double> table_search_extrema_rfctrd(i32* table, const i32 searched_number,
 							  bool &result) {
-	i32 minimum = INT32_MAX;
-	i32 maximum = INT32_MIN;
+	i32 minimum = table[0];
+	i32 maximum = table[0];
 
 	//start counting time
 	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
@@ -440,7 +405,7 @@ std::chrono::duration<double> table_search_extrema_rfctrd(i32 table[], const i32
 	// check if number is found
 	if (result) {
 		fprintf(stdout, "Time to find minimum: %ld and maximum: %ld in table"
-		  	"with refactored extrema search algorithm: %f s\n", minimum, maximum, diff.count());
+		  	"with refactored extrema search algorithm: %.7f s\n", minimum, maximum, diff.count());
 	} else {
 		fprintf(stderr, "Refactored extrema search didn't found minimum: %ld or maximum: %ld in table.\n",
 	  		minimum, maximum);
@@ -450,9 +415,9 @@ std::chrono::duration<double> table_search_extrema_rfctrd(i32 table[], const i32
 	return diff;
 }
 
-inline void table_search_ext_rfctrd(i32 table[], const size_t length, i32 &minimum, i32 &maximum) {
+inline void table_search_ext_rfctrd(i32* &table, const size_t length, i32 &minimum, i32 &maximum) {
 	size_t i;
-	for (i = 0; i < length; i++) {
+	for (i = 1; i < length; i++) {
 		if (table[i] > maximum)
 			maximum = table[i];
 		if (table[i] < minimum)

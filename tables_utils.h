@@ -36,23 +36,21 @@ static i32* table_data_read(const char *input_file) {
 	return return_ptr;
 }
 
-static u8 table_sort_result_write(const std::string &output_file, const int_fast32_t *table, const double diff) {
+static u8 table_sort_result_write(const std::string &output_file, const i32 *table, const double diff) {
 	//open the output file for write and clear its content
-	std::ofstream output;
-	output.open(output_file, std::ofstream::trunc);
-	if (!output.is_open())
+	FILE *output = fopen(output_file.c_str(), "w");
+	if (!output)
 		return ERR_OPEN_FILE;
 
-	output << "duration: " << diff << " s\n" << std::endl;
+	fprintf(output, "duration: %.7f s\n", diff);
 
 	//save output to file
 	for (size_t i = 0; i < AMOUNT; i++) {
-		output << table[i] << std::endl;
+		fprintf(output, "%ld\n", table[i]);
 	}
 
 	//close output file
-	output.close();
-	if (output.is_open())
+	if (fclose(output))
 		return ERR_CLOSE_FILE;
 
 	return SUCCESS;
@@ -60,16 +58,14 @@ static u8 table_sort_result_write(const std::string &output_file, const int_fast
 
 static u8 table_search_result_write(const std::string &output_file, const double diff) {
 	//open the output file for write and clear its content
-	std::ofstream output;
-	output.open(output_file, std::ofstream::trunc);
-	if (!output.is_open())
+	FILE *output = fopen(output_file.c_str(), "w");
+	if (!output)
 		return ERR_OPEN_FILE;
 
-	output << "duration: " << diff << " s" << std::endl;
+	fprintf(output, "duration: %.7f s\n", diff);
 
 	//close output file
-	output.close();
-	if (output.is_open())
+	if (fclose(output))
 		return ERR_CLOSE_FILE;
 
 	return SUCCESS;
@@ -87,7 +83,7 @@ static inline u8 validate_order(const i32 table[]) {
 }
 
 static u8 execute_sort_algorithm_on_table(const char *input_file, const std::string &output_file,
-					       std::chrono::duration<double> (*algorithm)(i32[])) {
+					       std::chrono::duration<double> (*algorithm)(i32*)) {
 	u8 result;
 	//open the file with generated data to sort for read
 	i32 *table = table_data_read(input_file);
@@ -112,7 +108,7 @@ error:
 
 static u8 execute_search_algorithm_on_table(const char *input_file, const std::string &output_file,
 						 const i32 searched_number, std::chrono::duration<double>
-						         (*algorithm)(i32[], const i32, bool&)) {
+						         (*algorithm)(i32*, const i32, bool&)) {
 	u8 result;
 	bool is_found = false;
 	//open the file with generated data to sort for read

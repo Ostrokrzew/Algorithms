@@ -13,7 +13,7 @@ std::chrono::duration<double> table_sort_bubble(long table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with bubble sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with bubble sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
@@ -21,7 +21,7 @@ std::chrono::duration<double> table_sort_bubble(long table[]) {
 
 void table_sort_bbl(long table[], int length) {
 	for (int i = 0; i < length; i++) {
-		for (int j = 0; j <= length-1; j++) {
+		for (int j = 0; j < length-1; j++) {
 			if (table[j] > table[j+1])
 				swap_tmp_table(table[j], table[j + 1]);
 		}
@@ -41,7 +41,7 @@ std::chrono::duration<double> table_sort_heap(long table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with heap sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with heap sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
@@ -85,7 +85,7 @@ std::chrono::duration<double> table_sort_insertion(long table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with insertion sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with insertion sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
@@ -118,7 +118,7 @@ std::chrono::duration<double> table_sort_merge(long table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with merge sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with merge sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
@@ -179,7 +179,7 @@ std::chrono::duration<double> table_sort_quick(long table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with quick sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with quick sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
@@ -215,7 +215,7 @@ std::chrono::duration<double> table_sort_selection(long table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with selection sort algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with selection sort algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
@@ -245,7 +245,7 @@ std::chrono::duration<double> table_sort_shell(long table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with original Shell's algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with original Shell's algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
@@ -258,8 +258,8 @@ void table_sort_shl(long table[], int length) {
 			long tmp_val;
 			int j;
 			tmp_val = table[i];
-			for (j = i; j >= step && table[j - step] > tmp_val; j -= step)
-				table[j] = table[j - step];
+			for (j = i; j >= step && table[j-step] > tmp_val; j -= step)
+				table[j] = table[j-step];
 			table[j] = tmp_val;
 		}
 		step /= 2;
@@ -278,7 +278,7 @@ std::chrono::duration<double> table_sort_ciura(long table[]) {
 
 	//print sorting duration time
 	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort table with Ciura's version of Shell's algorithm: %f s\n", diff.count());
+	fprintf(stdout, "Time to sort table with Ciura's version of Shell's algorithm: %.7f s\n", diff.count());
 
 	//return duration time
 	return diff;
@@ -316,7 +316,7 @@ std::chrono::duration<double> table_search_linear(long table[], long searched_nu
 
 	// check if number is found
 	if (result) {
-		fprintf(stdout, "Time to find %ld in table with linear search algorithm: %f s\n",
+		fprintf(stdout, "Time to find %ld in table with linear search algorithm: %.7f s\n",
 	  		searched_number, diff.count());
 	} else {
 		fprintf(stderr, "Linear search didn't found %ld in table.\n", searched_number);
@@ -327,58 +327,14 @@ std::chrono::duration<double> table_search_linear(long table[], long searched_nu
 }
 
 bool table_search_lnr(long table[], int length, long searched_item) {
+	bool result = false;
 	for (int i = 0; i < length; i++) {
 		long current_item = table[i];
 		if (current_item == searched_item) {
-			return true;
+			result = true;
 		}
 	}
-	return false;
-}
-
-std::chrono::duration<double> table_search_guardian(long table[], long searched_number, bool &result) {
-	//start counting time
-	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-
-	//start searching
-	result = table_search_grd(table, AMOUNT, searched_number);
-
-	//stop counting time
-	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-
-	//print searching duration time
-	std::chrono::duration<double> diff = end-start;
-
-	// check if number is found
-	if (result) {
-		fprintf(stdout, "Time to find %ld in table with linear search with guardian algorithm: %f s\n",
-	  		searched_number, diff.count());
-	} else {
-		fprintf(stderr, "Linear search with guardian didn't found %ld in table.\n", searched_number);
-	}
-
-	//return duration time
-	return diff;
-}
-
-bool table_search_grd(long table[], int length, long searched_item) {
-	int index = 0;
-	long tmp_table[length+1];
-	for (int i = 0; i <= length; i++)
-		tmp_table[i] = table[i];
-	tmp_table[length] = searched_item;  //set guardian
-
-	while (true) {
-		long current_item = tmp_table[index];
-		if (current_item == searched_item) {
-			break;
-		}
-		index += 1;
-	}
-	if (index < length)
-		return true;
-	else
-		return false;
+	return result;
 }
 
 /*** BINARY SEARCH ***/
@@ -397,7 +353,7 @@ std::chrono::duration<double> table_search_binary(long table[], long searched_nu
 
 	// check if number is found
 	if (result) {
-		fprintf(stdout, "Time to find %ld in table with binary search algorithm: %f s\n",
+		fprintf(stdout, "Time to find %ld in table with binary search algorithm: %.7f s\n",
 	  		searched_number, diff.count());
 	} else {
 		fprintf(stderr, "Binary search didn't found %ld in table.\n", searched_number);
@@ -444,7 +400,7 @@ std::chrono::duration<double> table_search_extrema(long table[], long searched_n
 	// check if number is found
 	if (result) {
 		fprintf(stdout, "Time to find minimum: %ld and maximum: %ld in table "
-		  	"with extrema search algorithm: %f s\n", minimum, maximum, diff.count());
+		  	"with extrema search algorithm: %.7f s\n", minimum, maximum, diff.count());
 	} else {
 		fprintf(stderr, "Extrema search didn't found minimum: %ld or maximum: %ld in table.\n",
 	  		minimum, maximum);

@@ -32,9 +32,6 @@ void table_sort_cr(long[], int);
 std::chrono::duration<double> table_search_linear(long[], long, bool&);
 bool table_search_lnr(long[], int, long);
 
-std::chrono::duration<double> table_search_guardian(long[], long, bool&);
-bool table_search_grd(long[], int, long);
-
 std::chrono::duration<double> table_search_binary(long[], long, bool&);
 bool table_search_bnr(long[], int, int, long);
 
