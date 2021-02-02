@@ -1,5 +1,5 @@
-#ifndef ENGINEERPROJECT_TABLES_UTILS_H
-#define ENGINEERPROJECT_TABLES_UTILS_H
+#ifndef ENGINEERPROJECT_TABLE_H
+#define ENGINEERPROJECT_TABLE_H
 
 #include "headers.h"
 
@@ -143,4 +143,4 @@ static void swap_tmp_table(long &a, long &b) {
 	b = tmp;
 }
 
-#endif //ENGINEERPROJECT_TABLES_UTILS_H
+#endif //ENGINEERPROJECT_TABLE_H

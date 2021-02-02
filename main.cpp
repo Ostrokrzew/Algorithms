@@ -26,13 +26,13 @@ int main() {
 		return DRAW_NMBR_FAIL;
 	}
 
-	result = run_normal_table_algorithms(number);
-	if (result)
-		return result;
-
-	result = run_refactored_table_algorithms(number);
-	if (result)
-		return result;
+//	result = run_normal_table_algorithms(number);
+//	if (result)
+//		return result;
+//
+//	result = run_refactored_table_algorithms(number);
+//	if (result)
+//		return result;
 //
 //	result = run_normal_list_algorithms(number);
 //	if (result)
@@ -41,6 +41,13 @@ int main() {
 //	result = run_refactored_list_algorithms(number);
 //	if (result)
 //		return result;
+	result = run_normal_tree_algorithms(number);
+	if (result)
+		return result;
+
+	result = run_refactored_tree_algorithms(number);
+	if (result)
+		return result;
 
 	//finish program
 	fprintf(stdout, "Every algorithm done its work. It's time to say goodbye.\n"

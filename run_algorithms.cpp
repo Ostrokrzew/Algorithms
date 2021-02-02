@@ -421,3 +421,67 @@ u8 run_refactored_list_search_algorithms(const i32 &number) {
 
 	return SUCCESS;
 }
+
+u8 run_normal_tree_algorithms(const i32 &number) {
+	u8 result;
+
+	result = run_normal_tree_search_algorithms(number);
+	if (result)
+		return result;
+
+	return SUCCESS;
+}
+
+u8 run_refactored_tree_algorithms(const i32 &number) {
+	u8 result;
+
+	result = run_refactored_tree_search_algorithms(number);
+	if (result)
+		return result;
+
+	return SUCCESS;
+}
+
+u8 run_normal_tree_search_algorithms(const i32 &number) {
+	u8 result;
+
+	result = execute_search_algorithm_on_tree(GENERATED_DATA_FILE.c_str(), TREE_SEARCH_DEPTH, number,
+						  reinterpret_cast<std::chrono::duration<double>
+						  (*)(binary_node_t const&, const i32, bool &)>
+						  (tree_search_depth));
+	if (result) {
+		fprintf(stderr, "Tree depth-first search failed with code %u.", result);
+		return DPTH_SEARCH_FAIL;
+	}
+
+	result = execute_search_algorithm_on_tree(GENERATED_DATA_FILE.c_str(), TREE_SEARCH_BREADTH, number,
+						  reinterpret_cast<std::chrono::duration<double>
+						  (*)(binary_node_t const&, const i32, bool &)>
+						  (tree_search_breadth));
+	if (result) {
+		fprintf(stderr, "Tree breadth-first search failed with code %u.", result);
+		return BRDTH_SEARCH_FAIL;
+	}
+
+	return SUCCESS;
+}
+
+u8 run_refactored_tree_search_algorithms(const i32 &number) {
+	u8 result;
+
+	result = execute_search_algorithm_on_tree(GENERATED_DATA_FILE.c_str(), TREE_SEARCH_DEPTH_REF, number,
+						  tree_search_depth_rfctrd);
+	if(result) {
+		fprintf(stderr, "Refactored tree depth-first search failed with code %u.", result);
+		return DPTH_SEARCH_FAIL;
+	}
+
+	result = execute_search_algorithm_on_tree(GENERATED_DATA_FILE.c_str(), TREE_SEARCH_BREADTH_REF, number,
+						  tree_search_breadth_rfctrd);
+	if(result) {
+		fprintf(stderr, "Refactored tree breadth-first search failed with code %u.", result);
+		return BRDTH_SEARCH_FAIL;
+	}
+
+	return SUCCESS;
+}

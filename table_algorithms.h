@@ -1,7 +1,7 @@
 #ifndef ENGINEERPROJECT_TABLE_ALGORITHMS_H
 #define ENGINEERPROJECT_TABLE_ALGORITHMS_H
 
-#include "tables_utils.h"
+#include "table.h"
 
 std::chrono::duration<double> table_sort_bubble(long[]);
 void table_sort_bbl(long[], int);

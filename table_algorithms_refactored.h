@@ -1,7 +1,7 @@
 #ifndef ENGINEERPROJECT_TABLE_ALGORITHMS_REFACTORED_H
 #define ENGINEERPROJECT_TABLE_ALGORITHMS_REFACTORED_H
 
-#include "tables_utils.h"
+#include "table.h"
 
 std::chrono::duration<double> table_sort_bubble_rfctrd(i32*);
 inline void table_sort_bbl_rfctrd(i32*&, size_t);

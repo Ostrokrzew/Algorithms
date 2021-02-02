@@ -14,11 +14,13 @@
 #include "list_algorithms.h"
 #include "list_algorithms_refactored.h"
 #include "rng.h"
-#include "tables_utils.h"
+#include "table.h"
 #include "table_algorithms.h"
 #include "table_algorithms_refactored.h"
 #include "list.h"
 #include "tree.h"
+#include "tree_algorithms.h"
+#include "tree_algorithms_refactored.h"
 
 
 #endif //ENGINEERPROJECT_HEADERS_H

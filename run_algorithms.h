@@ -20,4 +20,10 @@ u8 run_refactored_list_algorithms(const i32 &number);
 u8 run_refactored_list_sort_algorithms();
 u8 run_refactored_list_search_algorithms(const i32 &number);
 
+u8 run_normal_tree_algorithms(const i32 &number);
+u8 run_normal_tree_search_algorithms(const i32 &number);
+
+u8 run_refactored_tree_algorithms(const i32 &number);
+u8 run_refactored_tree_search_algorithms(const i32 &number);
+
 #endif //ENGINEERPROJECT_RUN_ALGORITHMS_H
