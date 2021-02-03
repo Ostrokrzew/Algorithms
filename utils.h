@@ -8,7 +8,7 @@
 #include <limits.h>
 
 //amount of numbers randomly generated
-#define AMOUNT (262144)
+#define AMOUNT (262144/64)
 
 //change numeric types to faster versions
 #define u8 uint_fast8_t

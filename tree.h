@@ -3,12 +3,6 @@
 
 #include "headers.h"
 
-static u32 left_right = 0;
-#define width ((sizeof(left_right) << 3) -1)
-static inline u32 left_right_swapper() {
-	return (left_right++ << width) ^ (1U << width);
-}
-
 typedef struct binary_tree {
 	struct binary_tree *parent;
 	i32 value;
