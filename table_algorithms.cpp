@@ -126,7 +126,7 @@ std::chrono::duration<double> table_sort_merge(long table[]) {
 
 void table_sort_mrg(long table[], int left, int right) {
 	if (left < right) {
-		int middle = (left + right) / 2;
+		int middle = left + (right - left) / 2;
 		table_sort_mrg(table, left, middle);
 		table_sort_mrg(table, middle + 1, right);
 		table_merge(table, left, middle, right);
@@ -134,36 +134,41 @@ void table_sort_mrg(long table[], int left, int right) {
 }
 
 void table_merge(long table[], int left, int middle, int right) {
+	int left_size = middle - left + 1;
+	int right_size = right - middle;
 	//copy table content to temporary table
-	auto *tmp_table = (long*)zmalloc(sizeof(long) * AMOUNT);
-	for (int i = 0; i < AMOUNT; i++)
-		tmp_table[i] = table[i];
+	long left_table[left_size], right_table[right_size];
+	for (int i = 0; i < left_size; i++)
+		left_table[i] = table[left+i];
+	for (int i = 0; i < right_size; i++)
+		right_table[i] = table[middle+1+i];
 
 	//create auxiliary variables
-	int left1 = left, left2 = middle + 1, i = left;
-	while ((left1 <= middle) && (left2 <= right)) {
-		if (table[left1] < table[left2]) {
-			tmp_table[i] = table[left1];
+	int left_idx = 0, right_idx = 0, i = left;
+	while (left_idx < left_size && right_idx < right_size) {
+		if (left_table[left_idx] <= right_table[right_idx]) {
+			table[i] = left_table[left_idx];
 			i += 1;
-			left1 += 1;
+			left_idx += 1;
 		}
 		else {
-			tmp_table[i] = table[left2];
+			table[i] = right_table[right_idx];
 			i += 1;
-			left2 += 1;
+			right_idx += 1;
 		}
 	}
 
-	while (left1 <= middle) {
-		tmp_table[i] = table[left1];
+	while (left_idx < left_size) {
+		table[i] = left_table[left_idx];
 		i += 1;
-		left1 += 1;
+		left_idx += 1;
 	}
 
-	//copy sorted temporary table content to table
-	for (int j = 0; j < AMOUNT; j++)
-		table[j] = tmp_table[j];
-	free(tmp_table);
+	while (right_idx < right_size) {
+		table[i] = right_table[right_idx];
+		i += 1;
+		right_idx += 1;
+	}
 }
 
 /*** QUICK SORT ***/

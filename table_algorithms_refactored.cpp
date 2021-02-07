@@ -145,29 +145,27 @@ inline void table_sort_mrg_rfctrd(i32* &table, size_t left, size_t right) {
 }
 
 inline void table_merge_rfctrd(i32* &table, size_t left, size_t middle, size_t right) {
-	size_t i, j;
-	//copy table content to temporary table
-	auto *tmp_table = (i32*)zmalloc(sizeof(i32) * AMOUNT);
-	for (i = 0; i < AMOUNT; i++)
-		tmp_table[i] = table[i];
+	size_t left_size = middle - left + 1, right_size = right - middle, left_idx = 0, right_idx = 0, i;
+	i32 left_table[left_size], right_table[right_size];
 
-	//create auxiliary variables
-	size_t left1 = left, left2 = middle + 1;
+	for (i = 0; i < left_size; ++i)
+		left_table[i] = table[left+i];
+	for (i = 0; i < right_size; ++i)
+		right_table[i] = table[middle+1+i];
+
 	i = left;
-	while (left1 <= middle && left2 <= right) {
-		if (table[left1] < table[left2])
-			tmp_table[i++] = table[left1++];
+	while (left_idx < left_size && right_idx < right_size) {
+		if (left_table[left_idx] <= right_table[right_idx])
+			table[i++] = left_table[left_idx++];
 		else
-			tmp_table[i++] = table[left2++];
+			table[i++] = right_table[right_idx++];
 	}
 
-	while (left1 <= middle)
-		tmp_table[i++] = table[left1++];
+	while (left_idx < left_size)
+		table[i++] = left_table[left_idx++];
 
-	//copy sorted temporary table content to table
-	for (j = 0; j < AMOUNT; j++)
-		table[j] = tmp_table[j];
-	free(tmp_table);
+	while (right_idx < right_size)
+		table[i++] = right_table[right_idx++];
 }
 
 /*** QUICK SORT ***/
