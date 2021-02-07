@@ -106,7 +106,7 @@ std::chrono::duration<double> list_sort_merge(list_node_t &first_node) {
 
 void list_sort_mrg(list_node_t &first_node, int left, int right) {
 	if (left < right) {
-		int middle = (left + right) / 2;
+		int middle = left + (right - left) / 2;
 		list_sort_mrg(first_node, left, middle);
 		list_sort_mrg(first_node, middle + 1, right);
 		first_node = list_merge(first_node, left, middle, right);
@@ -114,59 +114,70 @@ void list_sort_mrg(list_node_t &first_node, int left, int right) {
 }
 
 list_node_t list_merge(list_node_t first_node, int left, int middle, int right) {
+	int left_size = middle - left + 1;
+	int right_size = right - middle;
+	int i = 0;
 	list_node_t current_node = first_node;
-	list_node_t temp_list = init_list_node();
-	list_node_t temp_first_node = temp_list;
-	while (current_node != nullptr) {
-		set_list_node(temp_first_node, temp_list, current_node->value);
+	list_node_t left_list = init_list_node(), right_list = init_list_node();
+	list_node_t left_first_node = left_list, right_first_node = right_list;
+
+	while (i < left_size) {
+		set_list_node(left_first_node, left_list, current_node->value);
 		current_node = current_node->next;
 		if (current_node == nullptr)
 			break;
-		temp_list->next = init_list_node();
-		temp_list = temp_list->next;
-	}
-	temp_list = temp_first_node;
-
-	int left1 = left, left2 = middle + 1, i = left;
-	list_node_t left_node = first_node, right_node = left_node;
-
-	for (int j = 0; j < i; j++)
-		temp_list = temp_list->next;
-
-	for (int j = 0; j < left1; j++)
-		left_node = left_node->next;
-
-	for (int j = 0; j < left2; j++)
-		right_node = right_node->next;
-
-	while ((left1 <= middle) && (left2 <= right)) {
-		if (left_node->value < right_node->value) {
-			set_list_node(temp_first_node, temp_list, left_node->value);
-			temp_list = temp_list->next;
-			left_node = left_node->next;
-			i += 1;
-			left1 += 1;
-		}
-		else {
-			set_list_node(temp_first_node, temp_list, right_node->value);
-			temp_list = temp_list->next;
-			right_node = right_node->next;
-			i += 1;
-			left2 += 1;
-		}
-	}
-
-	while (left1 <= middle) {
-		set_list_node(temp_first_node, temp_list, left_node->value);
-		temp_list = temp_list->next;
-		left_node = left_node->next;
+		left_list->next = init_list_node();
+		left_list = left_list->next;
 		i += 1;
-		left1 += 1;
 	}
 
-	temp_list = temp_first_node;
-	remove_all_nodes(first_node);
-	return temp_list;
+	i = 0;
+	while (i < right_size) {
+		set_list_node(right_first_node, right_list, current_node->value);
+		current_node = current_node->next;
+		if (current_node == nullptr)
+			break;
+		right_list->next = init_list_node();
+		right_list = right_list->next;
+		i += 1;
+	}
+
+	i = 0;
+	current_node = first_node;
+	while (i < left && current_node != nullptr) {
+		current_node = current_node->next;
+		i += 1;
+	}
+
+	left_list = left_first_node, right_list = right_first_node;
+	while (left_list != nullptr && right_list != nullptr && current_node != nullptr) {
+		if (left_list->value <= right_list->value) {
+			set_list_node(first_node, current_node, left_list->value);
+			current_node = current_node->next;
+			left_list = left_list->next;
+		} else {
+			set_list_node(first_node, current_node, right_list->value);
+			current_node = current_node->next;
+			right_list = right_list->next;
+		}
+	}
+
+	while (left_list != nullptr && current_node != nullptr) {
+		set_list_node(first_node, current_node, left_list->value);
+		current_node = current_node->next;
+		left_list = left_list->next;
+	}
+
+	while (right_list != nullptr && current_node != nullptr) {
+		set_list_node(first_node, current_node, right_list->value);
+		current_node = current_node->next;
+		right_list = right_list->next;
+	}
+
+	remove_all_nodes(left_first_node);
+	remove_all_nodes(right_first_node);
+
+	return first_node;
 }
 
 /*** QUICK SORT ***/
