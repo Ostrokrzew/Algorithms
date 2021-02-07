@@ -11,8 +11,8 @@ struct list* list_sort_insrt(struct list*);
 void list_sort_insert(struct list*&, struct list*&);
 
 std::chrono::duration<double> list_sort_merge(struct list*&);
-void list_sort_mrg(struct list*&, int, int);
-struct list* list_merge(struct list*, int, int, int);
+void list_sort_mrg(struct list*&);
+struct list* list_merge(struct list*, struct list*);
 
 std::chrono::duration<double> list_sort_quick(struct list*&);
 struct list* list_sort_qck(struct list*);

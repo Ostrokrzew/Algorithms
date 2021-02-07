@@ -12,6 +12,7 @@ inline void list_sort_insert_rfctrd(struct metalist*&, struct list*&);
 
 std::chrono::duration<double> list_sort_merge_rfctrd(struct list*&);
 inline void list_sort_mrg_rfctrd(struct list*&);
+inline void list_split_to_merge_rfctrd(struct list*, struct list*&, struct list*&);
 inline struct list* list_merge_rfctrd(struct list*&, struct list*&);
 
 std::chrono::duration<double> list_sort_quick_rfctrd(struct list*&);

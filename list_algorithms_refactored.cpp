@@ -107,8 +107,20 @@ std::chrono::duration<double> list_sort_merge_rfctrd(list_node_t &first_node) {
 inline void list_sort_mrg_rfctrd(list_node_t &first_node) {
 	if (first_node == nullptr || first_node->next == nullptr)
 		return;
+
 	list_node_t left_head, right_head;
-	list_node_t left_tail = first_node, right_tail = first_node->next;
+	list_split_to_merge_rfctrd(first_node, left_head, right_head);
+
+	list_sort_mrg_rfctrd(left_head);
+	list_sort_mrg_rfctrd(right_head);
+	first_node = list_merge_rfctrd(left_head, right_head);
+}
+
+inline void list_split_to_merge_rfctrd(list_node_t first_node, list_node_t &sublist_head, list_node_t &sublist_tail)
+{
+	list_node_t left_tail, right_tail;
+	left_tail = first_node;
+	right_tail = first_node->next;
 
 	while (right_tail != nullptr) {
 		right_tail = right_tail->next;
@@ -117,13 +129,10 @@ inline void list_sort_mrg_rfctrd(list_node_t &first_node) {
 			right_tail = right_tail->next;
 		}
 	}
-	left_head = first_node;
-	right_head = left_tail->next;
-	left_tail->next = nullptr;
 
-	list_sort_mrg_rfctrd(left_head);
-	list_sort_mrg_rfctrd(right_head);
-	first_node = list_merge_rfctrd(left_head, right_head);
+	sublist_head = first_node;
+	sublist_tail = left_tail->next;
+	left_tail->next = nullptr;
 }
 
 inline list_node_t list_merge_rfctrd(list_node_t &left_node, list_node_t &right_node) {
