@@ -135,7 +135,7 @@ void table_sort_mrg(long table[], int left, int right) {
 
 void table_merge(long table[], int left, int middle, int right) {
 	//copy table content to temporary table
-	auto *tmp_table = (int*)zmalloc(sizeof(int) * AMOUNT);
+	auto *tmp_table = (long*)zmalloc(sizeof(long) * AMOUNT);
 	for (int i = 0; i < AMOUNT; i++)
 		tmp_table[i] = table[i];
 
