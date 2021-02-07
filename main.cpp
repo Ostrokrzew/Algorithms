@@ -8,9 +8,52 @@
 #include "run_algorithms.h"
 
 //run program
-int main() {
+int main(int argc, char **argv) {
+	u8 all = 1, table = 0, list = 0, tree = 0, both = 1, normal = 0, refactored = 0;
 	u8 result;
 	i32 number = NULL;
+
+	//process argues
+	if (argc == 1) {
+		all = 1;
+		both = 1;
+	} else if (argc >= 2) {
+		if (!strcmp(argv[1], "table")) {
+			table = 1;
+			all = 0;
+		} else if (!strcmp(argv[1], "list")) {
+			list = 1;
+			all = 0;
+		} else if (!strcmp(argv[1], "tree")) {
+			tree = 1;
+			all = 0;
+		} else if (!strcmp(argv[1], "normal")) {
+			normal = 1;
+			both = 0;
+		} else if (!strcmp(argv[1], "refactored")) {
+			refactored = 1;
+			both = 0;
+		}
+
+		if (argv[2]) {
+			if (!strcmp(argv[2], "normal")) {
+				normal = 1;
+				both = 0;
+			} else if (!strcmp(argv[2], "refactored")) {
+				refactored = 1;
+				both = 0;
+			} else if (!strcmp(argv[2], "table")) {
+				table = 1;
+				all = 0;
+			} else if (!strcmp(argv[2], "list")) {
+				list = 1;
+				all = 0;
+			} else if (!strcmp(argv[2], "tree")) {
+				tree = 1;
+				all = 0;
+			}
+		}
+	}
 
 	//generate data to sort
 	result = random_number_generator(GENERATED_DATA_FILE);
@@ -26,33 +69,51 @@ int main() {
 		return DRAW_NMBR_FAIL;
 	}
 
-	result = run_normal_table_algorithms(number);
-	if (result)
-		return result;
+	if (all || table) {
+        fprintf(stdout, "\n*** TABLE ALGORITHMS ***\n");
+        if (both || normal) {
+            result = run_normal_table_algorithms(number);
+            if (result)
+                return result;
+        }
+        if (both || refactored) {
+            result = run_refactored_table_algorithms(number);
+            if (result)
+                return result;
+        }
+    }
 
-	result = run_refactored_table_algorithms(number);
-	if (result)
-		return result;
+	if (all || list) {
+        fprintf(stdout, "\n*** LIST ALGORITHMS ***\n");
+        if (both || normal) {
+            result = run_normal_list_algorithms(number);
+            if (result)
+                return result;
+        }
+        if (both || refactored) {
+            result = run_refactored_list_algorithms(number);
+            if (result)
+                return result;
+        }
+    }
 
-	result = run_normal_list_algorithms(number);
-	if (result)
-		return result;
-
-	result = run_refactored_list_algorithms(number);
-	if (result)
-		return result;
-
-	result = run_normal_tree_algorithms(number);
-	if (result)
-		return result;
-
-	result = run_refactored_tree_algorithms(number);
-	if (result)
-		return result;
+	if (all || tree) {
+        fprintf(stdout, "\n*** TREE ALGORITHMS ***\n");
+        if (both || normal) {
+            result = run_normal_tree_algorithms(number);
+            if (result)
+                return result;
+        }
+        if (both || refactored) {
+            result = run_refactored_tree_algorithms(number);
+            if (result)
+                return result;
+        }
+    }
 
 	//finish program
-	fprintf(stdout, "Every algorithm done its work. It's time to say goodbye.\n"
-		"Sławomir Jankowski 2020/21");
+	fprintf(stdout, "\nEvery algorithm done its work. It's time to say goodbye.\n"
+		"Sławomir Jankowski 2020-2021");
 
 	return SUCCESS;
 }
