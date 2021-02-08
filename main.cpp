@@ -70,46 +70,46 @@ int main(int argc, char **argv) {
 	}
 
 	if (all || table) {
-        fprintf(stdout, "\n*** TABLE ALGORITHMS ***\n");
-        if (both || normal) {
-            result = run_normal_table_algorithms(number);
-            if (result)
-                return result;
-        }
-        if (both || refactored) {
-            result = run_refactored_table_algorithms(number);
-            if (result)
-                return result;
-        }
-    }
+		fprintf(stdout, "\n*** TABLE ALGORITHMS ***\n");
+		if (both || normal) {
+			result = run_normal_table_algorithms(number);
+			if (result)
+				return result;
+		}
+		if (both || refactored) {
+			result = run_refactored_table_algorithms(number);
+			if (result)
+				return result;
+		}
+    	}
 
 	if (all || list) {
-        fprintf(stdout, "\n*** LIST ALGORITHMS ***\n");
-        if (both || normal) {
-            result = run_normal_list_algorithms(number);
-            if (result)
-                return result;
-        }
-        if (both || refactored) {
-            result = run_refactored_list_algorithms(number);
-            if (result)
-                return result;
-        }
-    }
+		fprintf(stdout, "\n*** LIST ALGORITHMS ***\n");
+		if (both || normal) {
+		result = run_normal_list_algorithms(number);
+		if (result)
+			return result;
+		}
+		if (both || refactored) {
+			result = run_refactored_list_algorithms(number);
+			if (result)
+				return result;
+		}
+    	}
 
 	if (all || tree) {
-        fprintf(stdout, "\n*** TREE ALGORITHMS ***\n");
-        if (both || normal) {
-            result = run_normal_tree_algorithms(number);
-            if (result)
-                return result;
-        }
-        if (both || refactored) {
-            result = run_refactored_tree_algorithms(number);
-            if (result)
-                return result;
-        }
-    }
+		fprintf(stdout, "\n*** TREE ALGORITHMS ***\n");
+		if (both || normal) {
+			result = run_normal_tree_algorithms(number);
+			if (result)
+				return result;
+		}
+		if (both || refactored) {
+			result = run_refactored_tree_algorithms(number);
+			if (result)
+				return result;
+		}
+    	}
 
 	//finish program
 	fprintf(stdout, "\nEvery algorithm done its work. It's time to say goodbye.\n"
