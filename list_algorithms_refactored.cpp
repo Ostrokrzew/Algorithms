@@ -23,7 +23,7 @@ inline void list_sort_bbl_rfctrd(list_node_t const &first_node, const size_t len
 	bool change;
 	size_t i, j;
 
-	for (i = 0; i < lenght; i++) {	// -1 because the right node is the next node
+	for (i = 0; i < lenght; i++) {
 		change = false;
 		list_node_t left_node = first_node, right_node = left_node->next;
 
@@ -270,91 +270,6 @@ inline void list_sort_slct_rfctrd(list_node_t const &first_node) {
 	}
 }
 
-/*** SHELL'S SORT ***/
-std::chrono::duration<double> list_sort_shell_rfctrd(list_node_t &first_node) {
-	//start counting time
-	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-
-	//start sorting
-	list_sort_shl_rfctrd(first_node, AMOUNT);
-
-	//stop counting time
-	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-
-	//print sorting duration time
-	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort list with refactored original Shell's algorithm: %.7f s\n", diff.count());
-
-	//return duration time
-	return diff;
-}
-
-inline void list_sort_shl_rfctrd(list_node_t const &first_node, size_t length) {
-	size_t i, j, k, l, step = length >> 1;
-	list_node_t left_node, right_node;
-
-	for (i = step; i > 0; i >>= 1) {
-		for (j = i; j < length; j++) {
-			for (k = (j-i); k <= length; k -= i) {
-				left_node = first_node, right_node = first_node;
-				for (l = 0; l < k; l++) {
-					left_node = left_node->next;
-					right_node = right_node->next;
-				}
-				for (l = 0; l < i; l++) {
-					right_node = right_node->next;
-				}
-				if (right_node->value >= left_node->value)
-					break;
-				swap_xor_list(left_node, right_node);
-			}
-		}
-	}
-}
-
-std::chrono::duration<double> list_sort_ciura_rfctrd(list_node_t &first_node) {
-	//start counting time
-	std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-
-	//start sorting
-	list_sort_cr_rfctrd(first_node, AMOUNT);
-
-	//stop counting time
-	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-
-	//print sorting duration time
-	std::chrono::duration<double> diff = end-start;
-	fprintf(stdout, "Time to sort list with refactored Ciura's version of Shell's algorithm: %.7f s\n",
-		diff.count());
-
-	//return duration time
-	return diff;
-}
-
-inline void list_sort_cr_rfctrd(list_node_t const &first_node, size_t length) {
-	size_t j, k, l;
-	list_node_t left_node, right_node;
-	u16 steps[8] = {701, 301, 132, 57, 23, 10, 4, 1};
-
-	for (u16 step : steps) {
-		for (j = step; j < length; j++) {
-			for (k = (j-step); k <= length; k -= step) {
-				left_node = first_node, right_node = first_node;
-				for (l = 0; l < k; l++) {
-					left_node = left_node->next;
-					right_node = right_node->next;
-				}
-				for (l = 0; l < step; l++) {
-					right_node = right_node->next;
-				}
-				if (right_node->value >= left_node->value)
-					break;
-				swap_xor_list(left_node, right_node);
-			}
-		}
-	}
-}
-
 /*** LINEAR SEARCH ***/
 std::chrono::duration<double> list_search_linear_rfctrd(list_node_t const &first_node, const i32 searched_number,
 							bool &result) {
@@ -471,7 +386,7 @@ std::chrono::duration<double> list_search_extrema_rfctrd(list_node_t const &firs
 
 	// check if number is found
 	if (result) {
-		fprintf(stdout, "Time to find minimum: %ld and maximum: %ld in list"
+		fprintf(stdout, "Time to find minimum: %ld and maximum: %ld in list "
 				"with refactored extrema search algorithm: %.7f s\n", minimum, maximum, diff.count());
 	} else {
 		fprintf(stderr, "Refactored extrema search didn't found minimum: %ld or maximum: %ld in list.\n",

@@ -22,12 +22,6 @@ struct list** list_split(struct list*, struct list*, struct list**);
 std::chrono::duration<double> list_sort_selection(struct list*&);
 struct list* list_sort_slct(struct list*);
 
-std::chrono::duration<double> list_sort_shell(struct list*&);
-struct list* list_sort_shl(struct list*, int);
-
-std::chrono::duration<double> list_sort_ciura(struct list*&);
-struct list* list_sort_cr(struct list*, int);
-
 std::chrono::duration<double> list_search_linear(struct list*&, long, bool&);
 bool list_search_lnr(struct list*, long);
 

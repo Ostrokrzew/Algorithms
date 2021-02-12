@@ -23,12 +23,6 @@ inline struct list* list_split_rfctrd(struct list*, struct list*, struct list*&,
 std::chrono::duration<double> list_sort_selection_rfctrd(struct list*&);
 inline void list_sort_slct_rfctrd(struct list* const&);
 
-std::chrono::duration<double> list_sort_shell_rfctrd(struct list*&);
-inline void list_sort_shl_rfctrd(struct list* const&, size_t);
-
-std::chrono::duration<double> list_sort_ciura_rfctrd(struct list*&);
-inline void list_sort_cr_rfctrd(struct list* const&, size_t);
-
 std::chrono::duration<double> list_search_linear_rfctrd(struct list* const&, const i32, bool&);
 inline bool list_search_lnr_rfctrd(struct list* const&, const i32);
 

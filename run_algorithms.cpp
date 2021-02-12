@@ -288,22 +288,6 @@ u8 run_normal_list_sort_algorithms() {
 		return SLC_SORT_FAIL;
 	}
 
-	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_SHELL,
-						 reinterpret_cast<std::chrono::duration<double> (*)(
-							 list_node_t&)>(list_sort_shell));
-	if(result) {
-		fprintf(stderr, "List Shell's sort failed with code %u.", result);
-		return SHL_SORT_FAIL;
-	}
-
-	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_CIURA,
-						 reinterpret_cast<std::chrono::duration<double> (*)(
-							 list_node_t&)>(list_sort_ciura));
-	if(result) {
-		fprintf(stderr, "List Ciura's sort failed with code %u.", result);
-		return CRA_SORT_FAIL;
-	}
-
 	return SUCCESS;
 }
 
@@ -343,20 +327,6 @@ u8 run_refactored_list_sort_algorithms() {
 	if(result) {
 		fprintf(stderr, "Refactored list selection sort failed with code %u.", result);
 		return SLC_SORT_FAIL;
-	}
-
-	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_SHELL_REF,
-						 list_sort_shell_rfctrd);
-	if(result) {
-		fprintf(stderr, "Refactored list Shell's sort failed with code %u.", result);
-		return SHL_SORT_FAIL;
-	}
-
-	result = execute_sort_algorithm_on_list(GENERATED_DATA_FILE.c_str(), LIST_SORT_CIURA_REF,
-						 list_sort_ciura_rfctrd);
-	if(result) {
-		fprintf(stderr, "Refactored list Ciura's sort failed with code %u.", result);
-		return CRA_SORT_FAIL;
 	}
 
 	return SUCCESS;
